@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="_3DEUX1.IMMOBILIER.TG.Views.AllPostPage"
+             xmlns:vm="clr-namespace:_3DEUX1.IMMOBILIER.TG.ViewModels"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:models="clr-namespace:_3DEUX1.IMMOBILIER.TG.Models"
+             x:DataType="vm:AllPostPageViewModel"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False">
+
+    <Grid RowDefinitions="auto,*">
+        <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never" Margin="10">
+            <HorizontalStackLayout>
+                <Frame Padding="0" Margin="10,0" BackgroundColor="{Binding BackColorMaison}">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding CategorieSelectionerFuncCommand}" 
+                                      CommandParameter="0"/>
+                    </Frame.GestureRecognizers>
+                    <Label Text="Maison" FontSize="Subtitle" Margin="5"/>
+                </Frame>
+                <Frame Padding="0" Margin="10,0" BackgroundColor="{Binding BackColorAppartement}">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding CategorieSelectionerFuncCommand}" 
+                                      CommandParameter="1"/>
+                    </Frame.GestureRecognizers>
+                    <Label Text="Appartement" FontSize="Subtitle" Margin="5"/>
+                </Frame>
+                <Frame Padding="0" Margin="10,0" BackgroundColor="{Binding BackColorSalleDeReunion}">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding CategorieSelectionerFuncCommand}" 
+                                      CommandParameter="3"/>
+                    </Frame.GestureRecognizers>
+                    <Label Text="Salle de reunion" FontSize="Subtitle" Margin="5"/>
+                </Frame>
+                <!--<Frame Padding="0" Margin="10,0" BackgroundColor="{Binding BackColorVoiture}">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding CategorieSelectionerFuncCommand}" 
+                                      CommandParameter="2"/>
+                    </Frame.GestureRecognizers>
+                    <Label Text="Voiture" FontSize="Subtitle" Margin="5"/>
+                </Frame>-->
+            </HorizontalStackLayout>
+        </ScrollView>
+        <ScrollView VerticalScrollBarVisibility="Never" Scrolled="ScrollView_Scrolled" Grid.Row="1">
+            <StackLayout>
+                <Grid toolkit:StateContainer.CurrentState="{Binding CurrentState}" VerticalOptions="CenterAndExpand">
+                    <toolkit:StateContainer.StateViews>
+                        <FlexLayout BindableLayout.ItemsSource="{Binding Posts}" toolkit:StateView.StateKey="Success" 
+                                    Wrap="Wrap" JustifyContent="SpaceEvenly" Margin="10" Direction="Row" FlowDirection="LeftToRight">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate x:DataType="models:Post">
+                                    <Frame Padding="0,0,0,0" Margin="0,0,0,10" BorderColor="Transparent" x:Name="Data">
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:AllPostPageViewModel}},Path=GotoAnnoncePageCommand }" 
+                                                                  CommandParameter="{Binding .}"/>
+                                        </Frame.GestureRecognizers>
+                                        <Grid RowDefinitions="250,auto" MaximumWidthRequest="350">
+                                            <Frame Padding="0" BorderColor="Transparent">
+                                                <CarouselView IndicatorView="indicatorView" ItemsSource="{Binding Images}" x:Name="Test" >
+                                                    <CarouselView.ItemTemplate>
+                                                        <DataTemplate >
+                                                            <Grid>
+                                                                <!--Ici-->
+                                                                <Grid.GestureRecognizers>
+                                                                    <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:AllPostPageViewModel}},Path=GotoAnnoncePageCommand }" 
+                                                                                          CommandParameter="{Binding Source={Reference Name=Data}, Path=BindingContext}"/>
+                                                                </Grid.GestureRecognizers>
+
+                                                                <Border StrokeShape="RoundRectangle 10" StrokeThickness="0">
+                                                                    <Image x:Name="Image" Source="{Binding ., Converter={StaticResource Base64ToImageConverter}}" 
+                                                                           Aspect="AspectFill" BackgroundColor="SlateGray"/>
+                                                                </Border>
+                                                                <ActivityIndicator IsVisible="{Binding Source={x:Reference Image}, Path=IsLoading}" 
+                                                                                   IsRunning="{Binding Source={x:Reference Image}, Path=IsLoading}" 
+                                                                                   Color="#148fe9"
+                                                                                   VerticalOptions="CenterAndExpand"
+                                                                                   HorizontalOptions="CenterAndExpand" HeightRequest="50" 
+                                                                                   WidthRequest="50"/>
+                                                            </Grid>
+                                                        </DataTemplate>
+                                                    </CarouselView.ItemTemplate>
+                                                </CarouselView>
+                                            </Frame>
+                                            <IndicatorView x:Name="indicatorView" IndicatorColor="LightGray"
+                                                           SelectedIndicatorColor="Gray" Margin="0,0,0,20"
+                                                           IndicatorSize="10" HorizontalOptions="Center" 
+                                                           VerticalOptions="End" BackgroundColor="Transparent"/>
+                                            <VerticalStackLayout Grid.Row="1" Margin="5,0,5,5">
+                                                <!--Description-->
+                                                <Label Text="{Binding Name}" FontSize="Subtitle" VerticalTextAlignment="Center" Grid.Row="1"
+                                                       HorizontalOptions="StartAndExpand" FontAttributes="Bold"/>
+                                                <StackLayout Spacing="5" Margin="0,5,0,0" Orientation="Horizontal">
+                                                    <Label Text="{Binding DateTime , Converter={StaticResource FormatageDate}}" 
+                                                           VerticalTextAlignment="Center" FontSize="Subtitle" />
+                                                    <Label Text="{Binding Prix,StringFormat='{0} CFA/Mois'}" VerticalTextAlignment="Center" 
+                                                           FontSize="Subtitle" 
+                                                           HorizontalOptions="EndAndExpand" />
+                                                </StackLayout>
+                                            </VerticalStackLayout>
+                                        </Grid>
+                                    </Frame>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </FlexLayout>
+
+                        <ActivityIndicator toolkit:StateView.StateKey="Loading" IsEnabled="True" IsRunning="True"
+                                    Color="Green" WidthRequest="50" HeightRequest="50" VerticalOptions="CenterAndExpand"/>
+                        <Label Text="Vide !" FontSize="Title" HorizontalOptions="CenterAndExpand"
+                               TextColor="Black" toolkit:StateView.StateKey="Empty" VerticalOptions="CenterAndExpand"/>
+                    </toolkit:StateContainer.StateViews>
+                </Grid>
+                <ActivityIndicator IsEnabled="{Binding IsBusy}" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"
+                                   Color="Green" WidthRequest="30" HeightRequest="30" Margin="10"/>
+            </StackLayout>
+
+        </ScrollView>
+    </Grid>
+
+</ContentPage>

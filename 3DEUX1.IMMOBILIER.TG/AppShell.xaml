@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="_3DEUX1.IMMOBILIER.TG.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:local="clr-namespace:_3DEUX1.IMMOBILIER.TG"
+    xmlns:view="clr-namespace:_3DEUX1.IMMOBILIER.TG.Views"
+    Shell.FlyoutBehavior="Disabled"
+    Shell.NavBarIsVisible="False"
+    Shell.TabBarBackgroundColor="Black"
+    Shell.TabBarUnselectedColor="White"
+    Shell.TabBarForegroundColor="Gray"
+    Shell.TabBarTitleColor="White"
+    >
+    <Shell.Behaviors>
+        <toolkit:StatusBarBehavior StatusBarColor="#38a96b" StatusBarStyle="LightContent"/>
+    </Shell.Behaviors>
+
+
+
+    <!--<ShellContent 
+            ContentTemplate="{DataTemplate view:LoginPage}"
+            Route="LoginPage" />-->
+    <TabBar x:Name="tabbar">
+        <!--<ShellContent
+            ContentTemplate="{DataTemplate view:AccueilPage}"
+            Icon="accueil.png"
+         />
+        --><!--<ShellContent
+            ContentTemplate="{DataTemplate view:ChatPage}"
+            Icon="chat.png"
+        />--><!--
+        <ShellContent 
+            ContentTemplate="{DataTemplate view:MenuPage}"
+            Icon="menu.png"
+        />
+        <ShellContent 
+            ContentTemplate="{DataTemplate view:AddPostPage}"
+            Icon="menu.png"
+        />-->
+    </TabBar>
+
+
+
+
+</Shell>

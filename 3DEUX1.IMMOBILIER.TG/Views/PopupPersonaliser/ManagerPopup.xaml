@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               x:Class="_3DEUX1.IMMOBILIER.TG.Views.PopupPersonaliser.ManagerPopup"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               xmlns:vm="clr-namespace:_3DEUX1.IMMOBILIER.TG.ViewModels"
+               x:DataType="vm:ManagerPopupViewModel"
+               >
+    <VerticalStackLayout HeightRequest="{Binding ScreenHeight}" WidthRequest="{Binding ScreenWidth}">
+        <Label Text="Management !"/>
+        
+        <Button Text="Envoyer" BackgroundColor="Gray" Margin="20" VerticalOptions="EndAndExpand" 
+        Command="{Binding EnvoyerCommand}"/>
+        
+        <Button Text="Previsualiser le rendu !" BackgroundColor="Gray" Margin="20" VerticalOptions="EndAndExpand" 
+        Command="{Binding PrevisualisationCommand}"/>
+    </VerticalStackLayout>
+</toolkit:Popup>

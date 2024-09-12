@@ -1,0 +1,98 @@
+﻿using System.Linq;
+
+namespace _3DEUX1.IMMOBILIER.TG.Helpers
+{
+    class ApplicationData
+    {
+
+        public static List<string> GetLomeQuart()
+        {
+            List<string> quartiersLome = new List<string>
+            {
+                "Adakpamé",
+                "Adétikopé",
+                "Adidogomé",
+                "Adidoadin",
+                "Adoboukomé",
+                "Aflao",
+                "Agoè-Nyivé",
+                "Ablogamé",
+                "Agbalépédogan",
+                "Agbalépédogan",
+                "Amadahomé",
+                "Amoutiévé",
+                "Anfamé",
+                "Ablogamé",
+                "Adamavo",
+                "Ankoma",
+                "Aouda",
+                "Avenou",
+                "Baguida",
+                "Be-Apéyémé",
+                "Be-Kpota",
+                "Be-Klikamé",
+                "Be-Djifa-Kpota",
+                "Be-Douane",
+                "Be-Gakpoto",
+                "Be-Kodjoviakopé",
+                "Be-Kolowaré",
+                "Bè",
+                "Bè-Château",
+                "Bè-Port",
+                "Bè-Hedzranawoé",
+                "Cacavéli",
+                "Doumasséssé",
+                "Gbossimé",
+                "Hanoukopé",
+                "Hédzranawoé",
+                "Kagnikopé",
+                "Katanga",
+                "Kégué",
+                "Kodjoviakopé",
+                "Kokétimé",
+                "Kolévodou",
+                "Koumassi",
+                "Novissi",
+                "Nyékonakpoé",
+                "Sanguéra",
+                "Ségbé",
+                "Totsi",
+                "Tokoin-Forever",
+                "Tokoin-Trésor",
+                "Tokoin-Enyonam",
+                "Tokoin-Nyékonakpoé",
+                "Tokoin-Solidarité",
+                "Tokoin-Wuiti",
+                "Wétrivi",
+                "Wonyomé",
+                "Zanguéra",
+                "Agoè-Plateau",
+                "Attiégou",
+                "Atikoumé",
+                "Akodésséwa",
+                "Ahanoukopé",
+                "Bokokopé",
+                "Gbamakopé",
+                "Gbomamé",
+                "Gbonvié",
+                "Kévé",
+                "Klémé",
+                "Koumassi",
+                "Logopé",
+                "Lomnava",
+                "Lumière",
+                "Nukafu",
+                "Nukafu-Agoué",
+                "Sanguéra",
+                "Ségbé",
+                "Souzan",
+                "Tchad",
+                "Totsivi",
+                "Totsi",
+                "Totsivi"
+            };
+
+                return quartiersLome;
+        }
+    }
+}

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="_3DEUX1.IMMOBILIER.TG.Views.RegisterPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:vm="clr-namespace:_3DEUX1.IMMOBILIER.TG.ViewModels"
+             x:DataType="vm:RegisterPageViewModel"
+             BackgroundColor="White"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False">
+    <ContentPage.Behaviors>
+        <toolkit:StatusBarBehavior StatusBarColor="#38a96b" StatusBarStyle="LightContent"/>
+    </ContentPage.Behaviors>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="LogoBackgroudColor">#38a96b</Color>
+            <Color x:Key="IconBackgroudColor">#0689ff</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ScrollView HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never">
+        <VerticalStackLayout Spacing="0" Margin="0, 0, 0, 0">
+            <Border BackgroundColor="{StaticResource LogoBackgroudColor}" Margin="0,0,0,0" StrokeThickness="-2" StrokeShape="RoundRectangle 0,0,30,30">
+                <StackLayout>
+                    <Label Margin="0, 20, 0, 0" Text="Logo" 
+                           HorizontalOptions="Center"
+                           FontAttributes="Bold" FontSize="80"/>
+                    <!--<Image Source="user.png"/>-->
+                    <Label Margin="0, 20, 0, 10" Text="Bienvenue" FontSize="Title" FontAttributes="Bold" 
+                           HorizontalTextAlignment="Center" VerticalOptions="Center" TextColor="White"/>
+                </StackLayout>
+            </Border>
+
+            <Label Text="Inscription" Margin="10"
+               HorizontalOptions="CenterAndExpand" FontSize="20"/>
+            <Label Text="Veuillez entre vos indentifient" FontSize="20"
+               HorizontalOptions="CenterAndExpand" />
+
+            <!--Entre username-->
+            <Frame BackgroundColor="White" Margin="20, 20, 20, 0" HeightRequest="50" Padding="0">
+                <HorizontalStackLayout>
+                    <Frame WidthRequest="55" HeightRequest="55" BackgroundColor="{StaticResource IconBackgroudColor}"
+                           HorizontalOptions="Start" CornerRadius="10">
+                        <Frame Margin="0" Padding="0" HeightRequest="35" WidthRequest="35">
+                            <Image BackgroundColor="DarkRed" WidthRequest="35" HeightRequest="35"/>
+                        </Frame>
+                    </Frame>
+                    <Entry Margin="10, 0, 0, 0" Placeholder="Username" Text="{Binding RegisterModel.UserName}"
+                           FontSize="20" PlaceholderColor="#141414" TextColor="#141414" 
+                           IsTextPredictionEnabled="True" Keyboard="Text" />
+                </HorizontalStackLayout>
+            </Frame>
+            <Label Text="Username non valide." HorizontalOptions="Center" TextColor="Red" Margin="0, 0, 0, 0"
+                   FontSize="Subtitle" IsVisible="{Binding NoValideUsername}"/>
+
+            <!--Entre email-->
+            <VerticalStackLayout Margin="0, 0, 0, 30">
+                <Frame BackgroundColor="White" Margin="20, 20, 20, 0" HeightRequest="50" Padding="0">
+                <HorizontalStackLayout>
+                    <Frame WidthRequest="55" HeightRequest="55" BackgroundColor="{StaticResource IconBackgroudColor}"
+                       HorizontalOptions="Start" CornerRadius="10">
+                        <Frame Margin="0" Padding="0" HeightRequest="35" WidthRequest="35">
+                            <Image BackgroundColor="DarkRed" WidthRequest="35" HeightRequest="35"/>
+                        </Frame>
+                    </Frame>
+                    <Entry Margin="10, 0, 0, 0" Placeholder="Email" Text="{Binding RegisterModel.EmailAddress}"
+                       FontSize="20" PlaceholderColor="#141414" TextColor="#141414" 
+                       IsTextPredictionEnabled="True" Keyboard="Email"/>
+                </HorizontalStackLayout>
+                </Frame>
+                <Label Text="Email non valide." HorizontalOptions="Center" TextColor="Red" 
+                   FontSize="Subtitle" IsVisible="{Binding NoValideEmail}"/>
+            </VerticalStackLayout >
+            
+            <!--entre password-->
+            <VerticalStackLayout>
+                <Frame BackgroundColor="White" HeightRequest="50" Margin="20, 0, 20, 0" Padding="0">
+                <HorizontalStackLayout>
+                        <Frame WidthRequest="55" HeightRequest="55" BackgroundColor="{StaticResource IconBackgroudColor}"
+                           HorizontalOptions="Start" CornerRadius="10">
+                        <Frame Margin="0" Padding="0" HeightRequest="35" WidthRequest="35">
+                            <Image BackgroundColor="DarkRed" WidthRequest="35" HeightRequest="35"/>
+                        </Frame>
+                    </Frame>
+                    <Entry Margin="10, 0, 0, 0" Placeholder="Mots de passe" Text="{Binding RegisterModel.Password}"
+                           FontSize="20" PlaceholderColor="#141414" TextColor="#141414" 
+                           IsPassword="True" Keyboard="Text"/>
+                </HorizontalStackLayout>
+                </Frame>
+                <Label Text="Inclure un caractère spécial, un chiffre et une magiscule." HorizontalOptions="Center"
+                       TextColor="Red" FontSize="Subtitle" HorizontalTextAlignment="Center" TextType="Html"
+                       IsVisible="{Binding NoValidePasword}"/>
+            </VerticalStackLayout>
+            
+            <!--entrer confirmed password-->
+            <VerticalStackLayout Margin="0, 0, 0, 50">
+                <Frame HeightRequest="50" BackgroundColor="White" Margin="20, 20, 20, 0" Padding="0">
+                <HorizontalStackLayout>
+                        <Frame WidthRequest="55" HeightRequest="55" BackgroundColor="{StaticResource IconBackgroudColor}"
+                               HorizontalOptions="Start" CornerRadius="10">
+                        <Frame Margin="0" Padding="0" HeightRequest="35" WidthRequest="35">
+                            <Image BackgroundColor="DarkRed" WidthRequest="35" HeightRequest="35"/>
+                        </Frame>
+                    </Frame>
+                    <Entry Margin="10, 0, 0, 0" Placeholder="Confirmer le mots de passe" Text="{Binding RegisterModel.ConfirmPassword}"
+                           FontSize="20" PlaceholderColor="#141414" TextColor="#141414" 
+                           IsPassword="True" Keyboard="Text"/>
+                </HorizontalStackLayout>
+                </Frame>
+                <Label Text="Reverifier le mot de passe." HorizontalOptions="Center" TextColor="Red"  FontSize="Subtitle"
+                       IsVisible="{Binding NoValideConfirmPass}"/>
+            </VerticalStackLayout>
+
+            <Button Margin="0, 10, 0, 30" Text="Comfirmer"
+                TextColor="#141414" BackgroundColor="#d9d9d9" FontSize="20" 
+                 HeightRequest="60" WidthRequest="190" Command="{Binding RegisterCommand}"
+                VerticalOptions="Center" CornerRadius="50"/>
+
+
+            <Grid Margin="0, 10, 20, 0">
+                <Button BackgroundColor="Transparent" Text="Continuer" TextColor="Black"
+                    HorizontalOptions="EndAndExpand" FontSize="20" Command="{Binding SkipeCommand}"
+                    Margin="0, 0, 5, 0"/>
+                <Label Text=">" FontSize="25" FontAttributes="Bold" HorizontalOptions ="End" 
+                   Padding="0, 8.5, 0, 0" Margin="0"/>
+            </Grid>
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+</ContentPage>

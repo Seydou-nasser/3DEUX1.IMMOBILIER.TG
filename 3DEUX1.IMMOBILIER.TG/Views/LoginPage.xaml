@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="_3DEUX1.IMMOBILIER.TG.Views.LoginPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:vm="clr-namespace:_3DEUX1.IMMOBILIER.TG.ViewModels"
+             xmlns:model="clr-namespace:_3DEUX1.IMMOBILIER.TG.Models"
+             x:DataType="vm:LoginPageViewModel"
+             xmlns:test="clr-namespace:Maui.Skeleton;assembly=Maui.Skeleton"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False">
+    <ContentPage.Behaviors>
+        <toolkit:StatusBarBehavior StatusBarColor="#38a96b" StatusBarStyle="LightContent"/>
+    </ContentPage.Behaviors>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="Black"/>
+            </Style>
+            <Color x:Key="LogoBackgroudColor">#38a96b</Color>
+            <Color x:Key="IconBackgroudColor">#0689ff</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ScrollView HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never">
+        <VerticalStackLayout Spacing="0">
+            <Border BackgroundColor="{StaticResource LogoBackgroudColor}" Margin="0,0,0,0" StrokeThickness="-2" StrokeShape="RoundRectangle 0,0,30,30">
+                <StackLayout>
+                    <Label Margin="0, 20, 0, 0" Text="Logo" 
+                           HorizontalOptions="Center"
+                           FontAttributes="Bold" FontSize="80"/>
+                    <!--<Image Source="user.png"/>-->
+                    <Label Margin="0, 20, 0, 10" Text="Bienvenue" FontSize="Title" FontAttributes="Bold" 
+                           HorizontalTextAlignment="Center" VerticalOptions="Center" TextColor="White"/>
+                </StackLayout>
+            </Border>
+
+            <Label Text="Connexion"
+               HorizontalOptions="CenterAndExpand" FontSize="20" Margin="0,20,0,0"/>
+            <Label Text="Veuillez entre votre indentifient" FontSize="20"
+               HorizontalOptions="CenterAndExpand" />
+            <Frame BackgroundColor="White" Margin="20, 40, 20, 50" HeightRequest="50" Padding="0">
+                <HorizontalStackLayout>
+                    <Frame WidthRequest="55" HeightRequest="55" BackgroundColor="{StaticResource IconBackgroudColor}"
+                       HorizontalOptions="Start" CornerRadius="10">
+                        <Frame Margin="0" Padding="0" HeightRequest="35" WidthRequest="35">
+                            <Image BackgroundColor="DarkRed" WidthRequest="35" HeightRequest="35"/>
+                        </Frame>
+                    </Frame>
+                    <Entry Margin="10, 0, 0, 0" Placeholder="Email" Text="{Binding LoginModel.Email}"
+                       FontSize="20" PlaceholderColor="#141414" TextColor="#141414"/>
+                </HorizontalStackLayout>
+            </Frame>
+
+            <Frame BackgroundColor="White" HeightRequest="50" Margin="20, 0, 20, 0" Padding="0" >
+                <StackLayout Orientation="Horizontal">
+                    <Frame WidthRequest="55" HeightRequest="55" BackgroundColor="{StaticResource IconBackgroudColor}"
+                       HorizontalOptions="Start" CornerRadius="10">
+                        <Frame Margin="0" Padding="0" HeightRequest="35" WidthRequest="35">
+                            <Image BackgroundColor="DarkRed" WidthRequest="35" HeightRequest="35"/>
+                        </Frame>
+                    </Frame>
+                    <Entry Margin="10, 0, 0, 0" Placeholder="Mots de passe" Text="{Binding LoginModel.Password}"
+                       FontSize="20" PlaceholderColor="#141414" TextColor="#141414"
+                       IsPassword="{Binding PasswordIsVisible}"/>
+                    <Image HorizontalOptions="EndAndExpand" Margin="5" Source="{Binding PassImg}">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding PassVisibilityCommand}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                </StackLayout>
+            </Frame>
+
+
+            <Button Text="Se connecter" WidthRequest="250" Margin="0, 40, 0, 0" Command="{Binding LoginCommand}"
+                TextColor="#141414" BackgroundColor="#d9d9d9" FontSize="20" 
+                
+                VerticalOptions="Center" CornerRadius="50"/>
+
+            <Grid Margin="0, 50, 0, 0">
+                <Line StrokeLineCap="Round" Stroke="#9e9b9b" StrokeThickness="7" HorizontalOptions="CenterAndExpand" 
+                  X1="0" Y1="10" X2="300" Y2="10"/>
+                <Label Text="Ou" HorizontalOptions="Center" FontSize="Medium" 
+                   BackgroundColor="White" HorizontalTextAlignment="Center" WidthRequest="30"/>
+            </Grid>
+
+            <Button x:Name="RegisterBtn" Text="S'inscrire" WidthRequest="250" Margin="0, 40, 0, 0" 
+                CornerRadius="50" TextColor="#141414" Command="{Binding GoToRegisterPageCommand}"
+                BackgroundColor="#d9d9d9" FontSize="20" VerticalOptions="Center"/>
+
+            <Grid Margin="0, 20, 20, 0">
+                <Button BackgroundColor="Transparent" Text="Continuer" TextColor="Black" Command="{Binding SkipeCommand}"
+                    HorizontalOptions="EndAndExpand" FontSize="20" Margin="0, 0, 5, 0"/>
+                <Label Text=">" FontSize="25" FontAttributes="Bold" HorizontalOptions ="End" 
+                   Padding="0, 8.5, 0, 0" Margin="0"/>
+            </Grid>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
