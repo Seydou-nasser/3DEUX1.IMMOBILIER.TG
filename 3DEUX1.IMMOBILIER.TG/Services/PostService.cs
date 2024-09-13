@@ -7,99 +7,101 @@ namespace _3DEUX1.IMMOBILIER.TG.Services
 {
     public class PostService : IPostService
     {
-        //int pageIndex = 0;
-        private string apiAdress; //"http://10.0.2.2:5223/api/";//localhost:5223/api/
+        private readonly string _apiAddress;
+        private readonly HttpClient _httpClient;
 
-        public PostService()
+        public PostService(HttpClient httpClient)
         {
-            apiAdress = ApiData.GetApiBaseAddress();
+            _apiAddress = ApiData.GetApiBaseAddress();
+            _httpClient = httpClient;
+            _httpClient.BaseAddress = new Uri(_apiAddress);
         }
 
+        // Méthode pour récupérer les quatre posts les plus récents
         public async Task<List<Post>> DownloadFourRecentPost()
         {
-
             try
             {
-                using (HttpClient client = new HttpClient())
+                // Envoi de la requête GET
+                var response = await _httpClient.GetAsync("Post/GetFourPost");
+                if (response.IsSuccessStatusCode)
                 {
-                    client.BaseAddress = new Uri(apiAdress);
-                    //client.Timeout = TimeSpan.FromSeconds(120) ;
-                    var response = await client.GetAsync("Post/GetFourPost");
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var ResString = await response.Content.ReadAsStringAsync();
-
-                        var res = JsonConvert.DeserializeObject<List<Post>>(ResString)!.ToList();
-                        return res;
-                    }
-                    return new();
+                    var resString = await response.Content.ReadAsStringAsync();
+                    // Désérialisation de la réponse JSON en liste de Post
+                    return JsonConvert.DeserializeObject<List<Post>>(resString) ?? new List<Post>();
                 }
+                return new List<Post>();
             }
-            catch { return null!; }
+            catch (Exception ex)
+            {
+                // Logging de l'erreur
+                Console.WriteLine($"Erreur lors du téléchargement des posts récents : {ex.Message}");
+                return new List<Post>();
+            }
         }
 
+        // Méthode pour récupérer tous les posts avec pagination
         public async Task<List<Post>> GetAllPost(int pageIndex)
         {
             try
             {
-                using (HttpClient client = new HttpClient())
+                var response = await _httpClient.GetAsync($"Post/GetAllPostNotDelected?pageNumber={pageIndex}");
+                if (response.IsSuccessStatusCode)
                 {
-                    //pageIndex++;
-                    client.BaseAddress = new Uri(apiAdress);
-                    var response = await client.GetAsync($"Post/GetAllPostNotDelected?pageNumber={pageIndex}");
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var ResString = await response.Content.ReadAsStringAsync();
-
-                        List<Post> res = JsonConvert.DeserializeObject<List<Post>>(ResString)!.ToList();
-                        return res;
-                    }
-                    return new List<Post>();
+                    var resString = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<List<Post>>(resString) ?? new List<Post>();
                 }
+                return new List<Post>();
             }
-            catch { return null!; }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erreur lors de la récupération de tous les posts : {ex.Message}");
+                return new List<Post>();
+            }
         }
 
+        // Méthode pour récupérer les posts par catégorie
         public async Task<List<Post>> GetPostByCategories(int pageIndex, string type, string cat)
         {
-            // Post/GetAllPostByCategory/Locations/Villa?pageNumber=1
-
             try
             {
-                using (HttpClient client = new HttpClient())
+                // Construction de l'URL avec les paramètres
+                var response = await _httpClient.GetAsync($"Post/GetAllPostByCategory/{type}/{cat}?pageNumber={pageIndex}");
+                if (response.IsSuccessStatusCode)
                 {
-                    //pageIndex++;
-                    client.BaseAddress = new Uri(apiAdress);
-                    var response = await client.GetAsync($"Post/GetAllPostByCategory/{type}/{cat}?pageNumber={pageIndex}");
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var ResString = await response.Content.ReadAsStringAsync();
-
-                        List<Post> res = JsonConvert.DeserializeObject<List<Post>>(ResString)!.ToList();
-                        return res;
-                    }
-                    return new List<Post>();
+                    var resString = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<List<Post>>(resString) ?? new List<Post>();
                 }
+                return new List<Post>();
             }
-            catch { return null!; }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erreur lors de la récupération des posts par catégorie : {ex.Message}");
+                return new List<Post>();
+            }
         }
 
+        // Méthode pour télécharger un nouveau post
         public async Task<bool> UploadPost(Post post)
         {
-            using (HttpClient client = new HttpClient())
+            try
             {
-                client.BaseAddress = new Uri(apiAdress);
-                //string JsonPost = JsonConvert.SerializeObject(post);
-                //var content = new StringContent(JsonPost, Encoding.UTF8, "application/json");
-                var res = await client.PostAsJsonAsync("Post", post);
+                // Envoi de la requête POST avec le post sérialisé en JSON
+                var res = await _httpClient.PostAsJsonAsync("Post", post);
                 if (res.IsSuccessStatusCode)
                 {
-                    await CreatSnackBar.SnackBarShow("Envoyer !");
+                    await CreatSnackBar.SnackBarShow("Envoyé !");
                     return true;
                 }
+                await CreatSnackBar.SnackBarShow("Veuillez réessayer !");
+                return false;
             }
-            await CreatSnackBar.SnackBarShow("veuillez reeseyer !");
-            return false;
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erreur lors de l'upload du post : {ex.Message}");
+                await CreatSnackBar.SnackBarShow("Une erreur est survenue. Veuillez réessayer !");
+                return false;
+            }
         }
     }
 }

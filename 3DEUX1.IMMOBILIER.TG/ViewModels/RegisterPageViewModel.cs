@@ -10,7 +10,7 @@ namespace _3DEUX1.IMMOBILIER.TG.ViewModels
 {
     public partial class RegisterPageViewModel : ObservableObject
     {
-        readonly IUserService _userService = new UserService();
+        readonly IUserService _userService = new UserService(new HttpClient());
 
         [ObservableProperty]
         public RegisterModel _registerModel;

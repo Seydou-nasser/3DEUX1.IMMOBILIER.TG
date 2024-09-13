@@ -18,7 +18,7 @@ namespace _3DEUX1.IMMOBILIER.TG.ViewModels
         [ObservableProperty]
         public string _passImg;
 
-        readonly IUserService _userService = new UserService();
+        readonly IUserService _userService = new UserService(new HttpClient());
         public LoginPageViewModel()
         {
             LoginModel = new LoginModel();

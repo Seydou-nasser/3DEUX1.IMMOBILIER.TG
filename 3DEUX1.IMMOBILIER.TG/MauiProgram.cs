@@ -62,6 +62,8 @@ namespace _3DEUX1.IMMOBILIER.TG
 
             builder.Services.AddTransient<ManagerPopup>();
 
+            builder.Services.AddTransient<HttpClient>();
+
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

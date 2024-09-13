@@ -9,6 +9,7 @@ namespace _3DEUX1.IMMOBILIER.TG.Services
         private readonly string _apiAddress;
         private readonly HttpClient _httpClient;
 
+        // Constructeur avec injection de dépendance pour HttpClient
         public UserService(HttpClient httpClient)
         {
             _apiAddress = ApiData.GetApiBaseAddress() + "Users/";
@@ -16,6 +17,7 @@ namespace _3DEUX1.IMMOBILIER.TG.Services
             _httpClient.BaseAddress = new Uri(_apiAddress);
         }
 
+        // Méthode pour authentifier un utilisateur
         public async Task<User?> Login(string email, string password)
         {
             try
@@ -31,12 +33,13 @@ namespace _3DEUX1.IMMOBILIER.TG.Services
             }
             catch (Exception ex)
             {
-                // Loguer l'exception
+                // Logging de l'erreur
                 Console.WriteLine($"Erreur lors de la connexion : {ex.Message}");
                 return null;
             }
         }
 
+        // Méthode pour rafraîchir les informations de connexion d'un utilisateur
         public async Task<User?> RefrechLogin(string email)
         {
             try
@@ -56,35 +59,35 @@ namespace _3DEUX1.IMMOBILIER.TG.Services
             }
         }
 
+        // Méthode pour déconnecter l'utilisateur
         public void Logout()
         {
             Preferences.Default.Clear();
         }
 
+        // Méthode pour enregistrer un nouvel utilisateur
         public async Task<bool> Registre(RegisterModelSend model)
         {
             try
             {
-                using (HttpClient client = new())
+                var response = await _httpClient.PostAsJsonAsync("RegisterUser", model);
+                if (response.IsSuccessStatusCode)
                 {
-
-                    var response = await client.PostAsJsonAsync("RegisterUser", model);
-                    if (response.IsSuccessStatusCode)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        await Shell.Current.DisplayAlert("alert", await response.Content.ReadAsStringAsync(), "ok");
-                        return false;
-                    }
-
+                    return true;
                 }
+                
+                // Affichage d'une alerte en cas d'échec d'enregistrement
+                await Shell.Current.DisplayAlert("alert", await response.Content.ReadAsStringAsync(), "ok");
+                return false;
             }
-            catch { return false; }
-
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erreur lors de l'enregistrement : {ex.Message}");
+                return false;
+            }
         }
 
+        // Méthode pour vérifier si un utilisateur est connecté
         public bool UserVerifier()
         {
             if (Preferences.Default.ContainsKey(nameof(App.AppUser)))
@@ -92,13 +95,17 @@ namespace _3DEUX1.IMMOBILIER.TG.Services
                 try
                 {
                     App.AppUser = JsonConvert.DeserializeObject<User>(Preferences.Get(nameof(App.AppUser), null!));
-                    if (App.AppUser != null) return true;
-                    return false;
+                    return App.AppUser != null;
                 }
-                catch { return false; }
+                catch 
+                { 
+                    return false; 
+                }
             }
             return false;
         }
+
+        // Méthode pour télécharger un nouveau post
         public async Task<bool> UploadPost(Post post)
         {
             if (App.AppUser == null)
@@ -109,8 +116,8 @@ namespace _3DEUX1.IMMOBILIER.TG.Services
             try
             {
                 post.User = App.AppUser.Email;
-                IPostService postService = new PostService();
-                return await postService.UploadPost(post);
+                return await _httpClient.PostAsJsonAsync("Post", post).ContinueWith(
+                    task => task.Result.IsSuccessStatusCode);
             }
             catch (Exception ex)
             {

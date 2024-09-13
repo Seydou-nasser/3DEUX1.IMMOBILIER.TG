@@ -100,7 +100,7 @@ namespace _3DEUX1.IMMOBILIER.TG.ViewModels
         private int pageIndex = 1;
         public AllPostPageViewModel()
         {
-            postService = new();
+            postService = new PostService(new HttpClient());
             CatSelect = (int)(EnumCategories.Maison);
             CurrentState = "Loading";
             //LoadData();

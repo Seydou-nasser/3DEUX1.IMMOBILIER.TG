@@ -21,7 +21,7 @@ namespace _3DEUX1.IMMOBILIER.TG.ViewModels
         public async void LoadData()
         {
             CurrentState = "Loading";
-            PostService postService = new PostService();
+            PostService postService = new PostService(new HttpClient());
             var res = await postService.DownloadFourRecentPost();
             if (res != null && res.Count() > 0)
             {

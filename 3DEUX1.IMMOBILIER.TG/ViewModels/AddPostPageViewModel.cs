@@ -202,7 +202,7 @@ namespace _3DEUX1.IMMOBILIER.TG.ViewModels
         // Méthode pour uploader le post
         private async Task UploadPost()
         {
-            UserService userService = new();
+            UserService userService = new UserService(new HttpClient());
             var popup = new Views.PopupPersonalise(new PopupPersonaliseViewModel());
             App.Current!.MainPage!.ShowPopup(popup);
             bool success = await userService.UploadPost(Post!);
