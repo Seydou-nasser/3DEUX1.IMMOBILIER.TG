@@ -3,6 +3,7 @@ using _3DEUX1.IMMOBILIER.TG.ViewModels;
 using _3DEUX1.IMMOBILIER.TG.Views;
 using _3DEUX1.IMMOBILIER.TG.Views.PopupPersonaliser;
 using CommunityToolkit.Maui;
+using CommunityToolkit.Maui.Core;
 using Microsoft.Extensions.Logging;
 namespace _3DEUX1.IMMOBILIER.TG
 {
@@ -14,6 +15,7 @@ namespace _3DEUX1.IMMOBILIER.TG
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
+                .UseMauiCommunityToolkitCore()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -58,7 +60,7 @@ namespace _3DEUX1.IMMOBILIER.TG
             builder.Services.AddSingleton<AdminZoneService>();
             builder.Services.AddSingleton<IPostService, PostService>();
 
-            builder.Services.AddTransient<ManagerPopup, ManagerPopupViewModel>();
+            builder.Services.AddTransient<ManagerPopup>();
 
 #if DEBUG
             builder.Logging.AddDebug();

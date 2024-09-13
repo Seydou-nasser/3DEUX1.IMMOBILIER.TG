@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               x:Class="_3DEUX1.IMMOBILIER.TG.Views.PopupPersonaliser.PopupContact"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               xmlns:model="clr-namespace:_3DEUX1.IMMOBILIER.TG.Views.PopupPersonaliser"
+               x:DataType="model:PopupContact"
+               Color="Transparent"
+               >
+
+    <VerticalStackLayout  BackgroundColor="Transparent">
+        <Border Stroke="Transparent" StrokeShape="RoundRectangle 10" Padding="10" BackgroundColor="WhiteSmoke">
+            <Border.Shadow>
+                <Shadow Brush="Black" Offset="1,25" Radius="50" Opacity="0.3" />
+            </Border.Shadow>
+            <VerticalStackLayout>
+                <Label Text="Contacter via : " FontSize="Title"
+                       VerticalOptions="Center" 
+                       HorizontalOptions="Center" />
+
+                <Button Text="Whatsapp" FontSize="Title"
+                        HorizontalOptions="CenterAndExpand" CornerRadius="30" Padding="20,10"
+                        TextColor="Black" BackgroundColor="#74B94C" Margin="0,10">
+                    <Button.Behaviors>
+                        <toolkit:EventToCommandBehavior EventName="Clicked"
+                            Command="{Binding ContactForWhatsappCommand}"/>
+                    </Button.Behaviors>
+                    <Button.Shadow>
+                        <Shadow Brush="Black"
+    Offset="1,25"
+    Radius="50"
+    Opacity="0.3" />
+                    </Button.Shadow>
+                </Button>
+
+                <Button Text="Message SMS" FontSize="Title"
+                        HorizontalOptions="CenterAndExpand" CornerRadius="30" Padding="20,10"
+                        TextColor="Black" BackgroundColor="#74B94C" Margin="0,10">
+                    <Button.Behaviors>
+                        <toolkit:EventToCommandBehavior EventName="Clicked"
+                    Command="{Binding ContactForSMSCommand}"/>
+                    </Button.Behaviors>
+                    <Button.Shadow>
+                        <Shadow Brush="Black"
+            Offset="1,25"
+            Radius="50"
+            Opacity="0.3" />
+                    </Button.Shadow>
+                </Button>
+
+                <Button Text="Appeler" FontSize="Title"
+                        HorizontalOptions="CenterAndExpand" CornerRadius="30" Padding="20,10"
+                        TextColor="Black" BackgroundColor="#74B94C" Margin="0,10">
+                    <Button.Behaviors>
+                        <toolkit:EventToCommandBehavior EventName="Clicked"
+                                    Command="{Binding ContactForCallCommand}"/>
+                    </Button.Behaviors>
+                    <!--<Button.Shadow>
+                        <Shadow Brush="Black"
+                                Offset="1,25"
+                                Radius="50"
+                                Opacity="0.3" />
+                    </Button.Shadow>-->
+                </Button>
+            </VerticalStackLayout>
+        </Border>
+    </VerticalStackLayout>
+</toolkit:Popup>

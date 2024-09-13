@@ -86,42 +86,43 @@ namespace _3DEUX1.IMMOBILIER.TG.ViewModels
         }
 
         [RelayCommand]
-        public void ManagePopupCall(Post post)
+        public async Task ManagePopupCall(Post post)
         {
-            var popup = new ManagerPopup(new ManagerPopupViewModel(post));
-            App.Current!.MainPage!.ShowPopup(popup);
+            var popup = new ManagerPopup(post);
+            var res = await App.Current!.MainPage!.ShowPopupAsync(popup);
+            if (res is bool == true) Posts.Remove(post);
             //try { popup.Close(); }
             //catch { }
         }
 
-        [RelayCommand]
-        public async Task AutorizePostFunc(Post post)
-        {
-            UpdatePostModel model = new()
-            {
-                Id = post.Id,
-                Isavailable = true,
-                IsDelete = post.IsDelete,
-                AdminZone = App.AppUser!.Email,
-            };
-            var res = await adminZoneService.AutorisePost(model);
-            if (res == true) Posts.Remove(post);
-        }
-        [RelayCommand]
-        public void AfficheMenuFunc(Border obj)
-        {
-            if (obj!.IsVisible) obj!.IsVisible = false;
-            else obj!.IsVisible = true;
-        }
+        //[RelayCommand]
+        //public async Task AutorizePostFunc(Post post)
+        //{
+        //    UpdatePostModel model = new()
+        //    {
+        //        Id = post.Id,
+        //        Isavailable = true,
+        //        IsDelete = post.IsDelete,
+        //        AdminZone = App.AppUser!.Email,
+        //    };
+        //    var res = await adminZoneService.AutorisePost(model);
+        //    if (res == true) Posts.Remove(post);
+        //}
+        //[RelayCommand]
+        //public void AfficheMenuFunc(Border obj)
+        //{
+        //    if (obj!.IsVisible) obj!.IsVisible = false;
+        //    else obj!.IsVisible = true;
+        //}
 
-        [RelayCommand]
-        public async Task Previsualisation(Post post)
-        {
-            await NavigationHelper.NavigateAsync(nameof(PostDetailPage), new Dictionary<string, object>
-            {
-                { "PostDetails", post! }
-            });
-        }
+        //[RelayCommand]
+        //public async Task Previsualisation(Post post)
+        //{
+        //    await NavigationHelper.NavigateAsync(nameof(PostDetailPage), new Dictionary<string, object>
+        //    {
+        //        { "PostDetails", post! }
+        //    });
+        //}
 
     }
 }

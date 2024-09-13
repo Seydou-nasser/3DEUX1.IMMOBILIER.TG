@@ -3,16 +3,23 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                x:Class="_3DEUX1.IMMOBILIER.TG.Views.PopupPersonaliser.ManagerPopup"
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-               xmlns:vm="clr-namespace:_3DEUX1.IMMOBILIER.TG.ViewModels"
-               x:DataType="vm:ManagerPopupViewModel"
+               xmlns:model="clr-namespace:_3DEUX1.IMMOBILIER.TG.Views.PopupPersonaliser"
+               x:DataType="model:ManagerPopup"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               Color="Transparent"
                >
-    <VerticalStackLayout HeightRequest="{Binding ScreenHeight}" WidthRequest="{Binding ScreenWidth}">
-        <Label Text="Management !"/>
-        
-        <Button Text="Envoyer" BackgroundColor="Gray" Margin="20" VerticalOptions="EndAndExpand" 
-        Command="{Binding EnvoyerCommand}"/>
-        
-        <Button Text="Previsualiser le rendu !" BackgroundColor="Gray" Margin="20" VerticalOptions="EndAndExpand" 
-        Command="{Binding PrevisualisationCommand}"/>
+    <VerticalStackLayout>
+        <Border BackgroundColor="White" Padding="5" StrokeShape="RoundRectangle 10">
+            <VerticalStackLayout Background="Transparent" ZIndex="10">
+                <Label Text="Management" FontSize="Subtitle" HorizontalOptions="Center"/>
+
+                <Button Text="Envoyer" BackgroundColor="Gray" Margin="20" VerticalOptions="EndAndExpand" 
+                        Command="{Binding EnvoyerCommand}"/>
+
+                <Button Text="Previsualiser le rendu !" BackgroundColor="Gray" Margin="20" VerticalOptions="EndAndExpand" 
+                        Command="{Binding PrevisualisationCommand}"/>
+            </VerticalStackLayout>
+        </Border>
     </VerticalStackLayout>
 </toolkit:Popup>

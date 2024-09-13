@@ -6,64 +6,57 @@ namespace _3DEUX1.IMMOBILIER.TG.Services
 {
     public class UserService : IUserService
     {
-        private string apiAdress ;//"http://10.0.2.2:5223/api/Users/";//http://localhost:5223/api/Users/
+        private readonly string _apiAddress;
+        private readonly HttpClient _httpClient;
 
-        public UserService()
+        public UserService(HttpClient httpClient)
         {
-            apiAdress = ApiData.GetApiBaseAddress() + "Users/";
+            _apiAddress = ApiData.GetApiBaseAddress() + "Users/";
+            _httpClient = httpClient;
+            _httpClient.BaseAddress = new Uri(_apiAddress);
         }
 
-        public async Task<User> Login(string email, string password)
-        {
-            try
-            {
-                using (HttpClient client = new())
-                {
-                    client.BaseAddress = new Uri(apiAdress);
-                    var response = await client.GetAsync($"{email}/{password}");
-                    if (response.IsSuccessStatusCode)
-                    {
-                        User? user = await response.Content.ReadFromJsonAsync<User>();
-                        return user!;
-                    }
-                    else
-                    {
-                        await Application.Current!.MainPage!.DisplayAlert(email, $"{response.Content.ReadAsStringAsync().Result}", "OK");
-                    }
-
-                }
-                return null!;
-            }
-            catch
-            {
-
-                return null!;
-            }
-
-        }
-
-        public async Task<User> RefrechLogin(string email)
+        public async Task<User?> Login(string email, string password)
         {
             try
             {
-                if (string.IsNullOrEmpty(email)) return null!;
-                using (HttpClient client = new())
+                var response = await _httpClient.GetAsync($"{email}/{password}");
+                if (response.IsSuccessStatusCode)
                 {
-                    client.BaseAddress = new Uri(apiAdress);
-                    var response = await client.GetAsync($"{email}");
-                    //Console.WriteLine(response.IsSuccessStatusCode);
-                    if (response.IsSuccessStatusCode)
-                    {
-                        User? user = await response.Content.ReadFromJsonAsync<User>();
-                        return user!;
-                    }
-                    return null!;
+                    return await response.Content.ReadFromJsonAsync<User>();
                 }
+                
+                await Application.Current!.MainPage!.DisplayAlert(email, await response.Content.ReadAsStringAsync(), "OK");
+                return null;
             }
-            catch { return null!; }
+            catch (Exception ex)
+            {
+                // Loguer l'exception
+                Console.WriteLine($"Erreur lors de la connexion : {ex.Message}");
+                return null;
+            }
         }
 
-        public void logout()
+        public async Task<User?> RefrechLogin(string email)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(email)) return null;
+                var response = await _httpClient.GetAsync($"{email}");
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadFromJsonAsync<User>();
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erreur lors du rafraîchissement de la connexion : {ex.Message}");
+                return null;
+            }
+        }
+
+        public void Logout()
         {
             Preferences.Default.Clear();
         }
@@ -75,11 +68,9 @@ namespace _3DEUX1.IMMOBILIER.TG.Services
                 using (HttpClient client = new())
                 {
 
-                    client.BaseAddress = new Uri(apiAdress);
                     var response = await client.PostAsJsonAsync("RegisterUser", model);
                     if (response.IsSuccessStatusCode)
                     {
-                        //return response.Result.Content.ReadAsStringAsync();
                         return true;
                     }
                     else
@@ -110,22 +101,22 @@ namespace _3DEUX1.IMMOBILIER.TG.Services
         }
         public async Task<bool> UploadPost(Post post)
         {
-            try
-            {
-                if (App.AppUser != null)
-                {
-                    post.User = App.AppUser.Email;
-                    IPostService postService = new PostService();
-                    bool res = await postService.UploadPost(post);
-                    return res;
-                }
-                return false;
-            }
-            catch
+            if (App.AppUser == null)
             {
                 return false;
             }
 
+            try
+            {
+                post.User = App.AppUser.Email;
+                IPostService postService = new PostService();
+                return await postService.UploadPost(post);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erreur lors du téléchargement du post : {ex.Message}");
+                return false;
+            }
         }
 
     }

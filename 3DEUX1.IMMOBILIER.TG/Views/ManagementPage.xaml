@@ -17,12 +17,12 @@
                         <BindableLayout.ItemTemplate>
                             <DataTemplate x:DataType="models:Post">
                                 <Frame Padding="0,0,0,0" Margin="0,0,0,10" BorderColor="Transparent" x:Name="Data">
-                                    <!--<Frame.GestureRecognizers>
+                                    <Frame.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:ManagementPageViewModel}},Path=ManagePopupCallCommand }" 
                                                           CommandParameter="{Binding .}"/>
-                                    </Frame.GestureRecognizers>-->
+                                    </Frame.GestureRecognizers>
                                     <Grid RowDefinitions="250,auto" MaximumWidthRequest="350">
-                                        <Grid ZIndex="10" RowDefinitions="auto" ColumnDefinitions="auto,auto" Margin="5,10" HorizontalOptions="EndAndExpand">
+                                        <!--<Grid ZIndex="10" RowDefinitions="auto" ColumnDefinitions="auto,auto" Margin="5,10" HorizontalOptions="EndAndExpand">
                                             <ImageButton Source="troispoints.png" ZIndex="10" Grid.Column="1"
                                                    HorizontalOptions="End" BackgroundColor="Transparent"
                                                    VerticalOptions="StartAndExpand" HeightRequest="30" WidthRequest="30" 
@@ -54,21 +54,20 @@
                                                     
                                                 </VerticalStackLayout>
                                             </Border>
-                                        </Grid>
+                                        </Grid>-->
                                         <Frame Padding="0" BorderColor="Transparent">
                                             <CarouselView IndicatorView="indicatorView" ItemsSource="{Binding Images}" x:Name="Test" >
                                                 <CarouselView.ItemTemplate>
                                                     <DataTemplate >
                                                         <Grid>
-                                                            
                                                             <!--Ici-->
-                                                            <!--<Grid.GestureRecognizers>
+                                                            <Grid.GestureRecognizers>
                                                                 <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:ManagementPageViewModel}},Path = ManagePopupCallCommand }" 
                                                                                   CommandParameter="{Binding Source={Reference Name=Data}, Path=BindingContext}"/>
-                                                            </Grid.GestureRecognizers>-->
+                                                            </Grid.GestureRecognizers>
                                                             <Border StrokeShape="RoundRectangle 10" StrokeThickness="0">
                                                                 <Image x:Name="Image" Source="{Binding ., Converter={StaticResource Base64ToImageConverter}}" 
-                                                                   Aspect="AspectFill" BackgroundColor="SlateGray"/>
+                                                                       Aspect="AspectFill" BackgroundColor="SlateGray"/>
                                                             </Border>
                                                             <ActivityIndicator IsVisible="{Binding Source={x:Reference Image}, Path=IsLoading}" 
                                                                            IsRunning="{Binding Source={x:Reference Image}, Path=IsLoading}" 
@@ -104,7 +103,7 @@
                     </FlexLayout>
 
                     <ActivityIndicator toolkit:StateView.StateKey="Loading" IsEnabled="True" IsRunning="True"
-                            Color="Green" WidthRequest="50" HeightRequest="50" VerticalOptions="CenterAndExpand"/>
+                                       Color="Green" WidthRequest="50" HeightRequest="50" VerticalOptions="CenterAndExpand"/>
                     <VerticalStackLayout toolkit:StateView.StateKey="Empty" Padding="0" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
                         <Label Text="Vide !" FontSize="Title" HorizontalOptions="CenterAndExpand"
                                TextColor="Black" VerticalOptions="CenterAndExpand"/>
