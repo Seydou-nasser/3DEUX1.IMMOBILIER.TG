@@ -25,9 +25,15 @@ namespace _3DEUX1.IMMOBILIER.TG.Services
                 var response = await _httpClient.GetAsync($"{email}/{password}");
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadFromJsonAsync<User>();
+                    var loginResponse = await response.Content.ReadFromJsonAsync<LoginResponse>();
+                    if (loginResponse != null)
+                    {
+                        // Stockez le token JWT
+                        await SecureStorage.SetAsync("jwt_token", loginResponse.Token!);
+                        return loginResponse.User;
+                    }
                 }
-                
+
                 await Application.Current!.MainPage!.DisplayAlert(email, await response.Content.ReadAsStringAsync(), "OK");
                 return null;
             }
@@ -40,12 +46,11 @@ namespace _3DEUX1.IMMOBILIER.TG.Services
         }
 
         // Méthode pour rafraîchir les informations de connexion d'un utilisateur
-        public async Task<User?> RefrechLogin(string email)
+        public async Task<User?> RefrechLogin(string token)
         {
             try
             {
-                if (string.IsNullOrEmpty(email)) return null;
-                var response = await _httpClient.GetAsync($"{email}");
+                var response = await _httpClient.GetAsync($"RefrechLogin/{token}");
                 if (response.IsSuccessStatusCode)
                 {
                     return await response.Content.ReadFromJsonAsync<User>();
@@ -72,7 +77,7 @@ namespace _3DEUX1.IMMOBILIER.TG.Services
             {
                 var response = await _httpClient.PostAsJsonAsync("RegisterUser", model);
                 if (response.IsSuccessStatusCode) return true;
-                
+
                 // Affichage d'une alerte en cas d'échec d'enregistrement
                 await Shell.Current.DisplayAlert("alert", await response.Content.ReadAsStringAsync(), "ok");
                 return false;
@@ -85,18 +90,17 @@ namespace _3DEUX1.IMMOBILIER.TG.Services
         }
 
         // Méthode pour vérifier si un utilisateur est connecté
-        public bool UserVerifier()
+        public async Task<bool> UserVerifier()
         {
-            if (Preferences.Default.ContainsKey(nameof(App.AppUser)))
+            var token = await GetJwtToken();
+            if (!string.IsNullOrEmpty(token))
             {
-                try
+                // Vérifiez la validité du token (vous pouvez ajouter une méthode pour vérifier le token côté serveur)
+                var user = await RefrechLogin(token);
+                if (user != null)
                 {
-                    App.AppUser = JsonConvert.DeserializeObject<User>(Preferences.Get(nameof(App.AppUser), null!));
-                    return App.AppUser != null;
-                }
-                catch 
-                { 
-                    return false; 
+                    App.AppUser = user;
+                    return true;
                 }
             }
             return false;
@@ -124,5 +128,15 @@ namespace _3DEUX1.IMMOBILIER.TG.Services
             }
         }
 
+        public static async Task<string> GetJwtToken()
+        {
+            return await SecureStorage.GetAsync("jwt_token") ?? string.Empty;
+        }
+    }
+
+    public class LoginResponse
+    {
+        public User? User { get; set; }
+        public string? Token { get; set; }
     }
 }

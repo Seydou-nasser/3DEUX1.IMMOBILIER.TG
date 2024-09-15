@@ -5,6 +5,11 @@ using _3DEUX1.IMMOBILIER.TG.Views.PopupPersonaliser;
 using CommunityToolkit.Maui;
 using CommunityToolkit.Maui.Core;
 using Microsoft.Extensions.Logging;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using System;
+
 namespace _3DEUX1.IMMOBILIER.TG
 {
     public static class MauiProgram
@@ -63,6 +68,12 @@ namespace _3DEUX1.IMMOBILIER.TG
             builder.Services.AddTransient<ManagerPopup>();
 
             builder.Services.AddTransient<HttpClient>();
+
+            builder.Services.AddTransient<JwtAuthenticationHandler>();
+            builder.Services.AddHttpClient("API", client => client.BaseAddress = new Uri(ApiData.GetApiBaseAddress()))
+                .AddHttpMessageHandler<JwtAuthenticationHandler>();
+
+            builder.Services.AddSingleton(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("API"));
 
 #if DEBUG
             builder.Logging.AddDebug();
