@@ -29,7 +29,7 @@ public partial class PopupContact : CommunityToolkit.Maui.Views.Popup
                 var url = $"https://wa.me/{post.UserNum}?text={Uri.EscapeDataString(message)}";
                 await Launcher.OpenAsync(url);
             }
-            catch (Exception ex)
+            catch
             {
                 // Gérer l'exception, par exemple afficher une alerte
                 await Shell.Current.DisplayAlert("Erreur", "Impossible d'ouvrir WhatsApp.", "OK");
@@ -51,7 +51,7 @@ public partial class PopupContact : CommunityToolkit.Maui.Views.Popup
                 var smsUri = new Uri($"sms:{post.UserNum}?body={Uri.EscapeDataString(message)}");
                 await Launcher.OpenAsync(smsUri);
             }
-            catch (Exception ex)
+            catch
             {
                 await Shell.Current.DisplayAlert("Erreur", "Impossible d'ouvrir l'application SMS.", "OK");
             }
@@ -71,7 +71,7 @@ public partial class PopupContact : CommunityToolkit.Maui.Views.Popup
             {
                 PhoneDialer.Open(post.UserNum);
             }
-            catch (Exception ex)
+            catch
             {
                 await Shell.Current.DisplayAlert("Erreur", "Impossible de passer l'appel.", "OK");
             }

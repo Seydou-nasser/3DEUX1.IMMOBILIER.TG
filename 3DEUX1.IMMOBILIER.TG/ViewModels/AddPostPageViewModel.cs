@@ -2,6 +2,7 @@
 using _3DEUX1.IMMOBILIER.TG.Models;
 using _3DEUX1.IMMOBILIER.TG.Services;
 using _3DEUX1.IMMOBILIER.TG.Views;
+using _3DEUX1.IMMOBILIER.TG.Views.PopupPersonaliser;
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -210,7 +211,7 @@ namespace _3DEUX1.IMMOBILIER.TG.ViewModels
         private async Task UploadPost()
         {
             UserService userService = new UserService(new HttpClient());
-            var popup = new Views.PopupPersonalise(new ChargementPopupViewModel());
+            var popup = new ChargementPopup(new ChargementPopupViewModel());
             App.Current!.MainPage!.ShowPopup(popup);
             bool success = await userService.UploadPost(Post!);
             popup.Close();

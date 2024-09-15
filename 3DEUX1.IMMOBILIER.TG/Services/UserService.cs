@@ -71,10 +71,7 @@ namespace _3DEUX1.IMMOBILIER.TG.Services
             try
             {
                 var response = await _httpClient.PostAsJsonAsync("RegisterUser", model);
-                if (response.IsSuccessStatusCode)
-                {
-                    return true;
-                }
+                if (response.IsSuccessStatusCode) return true;
                 
                 // Affichage d'une alerte en cas d'échec d'enregistrement
                 await Shell.Current.DisplayAlert("alert", await response.Content.ReadAsStringAsync(), "ok");
@@ -116,8 +113,9 @@ namespace _3DEUX1.IMMOBILIER.TG.Services
             try
             {
                 post.User = App.AppUser.Email;
-                return await _httpClient.PostAsJsonAsync("Post", post).ContinueWith(
-                    task => task.Result.IsSuccessStatusCode);
+                _httpClient.BaseAddress = new Uri(ApiData.GetApiBaseAddress());
+                var response = await _httpClient.PostAsJsonAsync("Post", post);
+                return response.IsSuccessStatusCode;
             }
             catch (Exception ex)
             {

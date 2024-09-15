@@ -1,5 +1,6 @@
 ﻿using _3DEUX1.IMMOBILIER.TG.Models;
 using _3DEUX1.IMMOBILIER.TG.Services;
+using _3DEUX1.IMMOBILIER.TG.Views.PopupPersonaliser;
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -44,7 +45,7 @@ namespace _3DEUX1.IMMOBILIER.TG.ViewModels
                 if (!NoValideEmail && !NoValidePasword && !NoValideConfirmPass)
                 {
                     
-                    var popup = new Views.PopupPersonalise(new ChargementPopupViewModel());
+                    var popup = new ChargementPopup(new ChargementPopupViewModel());
                     //Shell.Current.ShowPopup(popup);
                     App.Current!.MainPage!.ShowPopup(popup);
                     RegisterModelSend model = new() { EmailAddress = RegisterModel.EmailAddress, UserName = RegisterModel.UserName, Password = RegisterModel.ConfirmPassword };

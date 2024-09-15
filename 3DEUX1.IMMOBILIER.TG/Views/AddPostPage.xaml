@@ -92,7 +92,9 @@
                     <Label Text="Avance : " FontSize="Subtitle" VerticalOptions="CenterAndExpand"
                             HorizontalOptions="End" Margin="10,0,0,0"/>
                     <Entry Placeholder="Avance.." HorizontalOptions="CenterAndExpand" TextColor="Black" 
-                    FontSize="Subtitle" Margin="0,0,10,0" Text="{Binding Avance}" Keyboard="Numeric"/>
+                           FontSize="Subtitle" Margin="0,0,10,0" Text="{Binding Avance}" Keyboard="Numeric"/>
+                    <Label Text="MOIS" FontSize="Subtitle" VerticalOptions="CenterAndExpand"
+                           HorizontalOptions="End" Margin="0,0,10,0"/>
                 </StackLayout>
             </Frame>
             <!--<VerticalStackLayout Margin="20,0,20,20">
@@ -139,7 +141,9 @@
                     <Label Text="Superficie du terrain : " FontSize="Subtitle" VerticalOptions="CenterAndExpand"
                                HorizontalOptions="End" Margin="10,0,0,0"/>
                     <Entry Placeholder="Superficie..." HorizontalOptions="CenterAndExpand" TextColor="Black" 
-                                FontSize="Subtitle" Margin="0,0,10,0" Text="{Binding Superficie}" Keyboard="Numeric"/>
+                           FontSize="Subtitle" Margin="0,0,0,0" Text="{Binding Superficie}" Keyboard="Numeric"/>
+                    <Label Text="m2" FontSize="Subtitle" VerticalOptions="CenterAndExpand"
+                           HorizontalOptions="End" Margin="0,0,10,0"/>
                 </StackLayout>
             </Frame>
 
