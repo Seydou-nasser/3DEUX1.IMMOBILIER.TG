@@ -32,7 +32,7 @@ namespace _3DEUX1.IMMOBILIER.TG
         // Vérifie l'utilisateur et rafraîchit ses informations
         private async Task VerifyUser()
         {
-            UserService service = new();
+            UserService service = new UserService(new HttpClient());
             if (App.AppUser != null)
             {
                 var res = await service.RefrechLogin(App.AppUser!.Email);
@@ -106,7 +106,7 @@ namespace _3DEUX1.IMMOBILIER.TG
 
             if (App.AppUser == null) return;
 
-            var service = new UserService();
+            var service = new UserService(new HttpClient());
             var user = await service.RefrechLogin(App.AppUser.Email);
 
             if (user != null)

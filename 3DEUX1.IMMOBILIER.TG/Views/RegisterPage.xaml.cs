@@ -14,7 +14,7 @@ public partial class RegisterPage : ContentPage
 	}
     protected override void OnAppearing()
     {
-        UserService userService = new UserService();
+        UserService userService = new UserService(new HttpClient());
         userService.UserVerifier();
         base.OnAppearing();
     }

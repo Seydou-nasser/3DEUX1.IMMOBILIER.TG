@@ -50,9 +50,9 @@
                 <Frame Padding="0" >
                     <StackLayout Orientation="Horizontal">
                         <Label Text="+228" FontSize="Subtitle" VerticalOptions="CenterAndExpand"
-                               HorizontalOptions="End" Margin="0,0,10,0"/>
+                               HorizontalOptions="End" Margin="10,0,10,0"/>
                         <Entry Placeholder="Numero Whatsapp...." Text="{Binding Post.UserNum}" HorizontalOptions="FillAndExpand" TextColor="Black" 
-                               FontSize="Subtitle" Margin="10,0,0,0" Keyboard="Telephone"/>
+                               FontSize="Subtitle" Margin="0,0,0,0" Keyboard="Telephone"/>
                     </StackLayout>
                 </Frame>
             </VerticalStackLayout>

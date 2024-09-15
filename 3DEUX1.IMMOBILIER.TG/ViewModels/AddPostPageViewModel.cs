@@ -105,6 +105,7 @@ namespace _3DEUX1.IMMOBILIER.TG.ViewModels
             Post.Localisation = Localisation;
             Caracteristique?.Add($"{Superficie} superficie");
             Caracteristique?.Add($"{Chambre} chambre");
+            Post.UserNum = "+228" + Post.UserNum;
 
             // Gestion de l'avance pour une location
             if (!int.TryParse(Avance, out int avanceValue) && Post.Type == "Location")
@@ -140,6 +141,7 @@ namespace _3DEUX1.IMMOBILIER.TG.ViewModels
             Post.Images = new List<string>();
             Prix = null!;
             Images.Clear();
+            Avance =string.Empty;
         }
 
         // Commande pour sélectionner des images
@@ -158,6 +160,11 @@ namespace _3DEUX1.IMMOBILIER.TG.ViewModels
                 });
 
                 if (response == null || !response.Any()) return;
+                if (response.Count() > 3)
+                {
+                    await CreatSnackBar.SnackBarShow($"Vous ne pouver selectionner plus de 3 photos!");
+                    return;
+                }
 
                 foreach (var img in response)
                 {

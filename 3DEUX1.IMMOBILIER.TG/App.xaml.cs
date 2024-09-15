@@ -20,7 +20,7 @@ namespace _3DEUX1.IMMOBILIER.TG
         // Vérifie si l'utilisateur est authentifié
         private bool IsUserVerified()
         {
-            return new UserService().UserVerifier();
+            return new UserService(new HttpClient()).UserVerifier();
         }
 
         // Méthode de vérification asynchrone de l'utilisateur (actuellement commentée)
