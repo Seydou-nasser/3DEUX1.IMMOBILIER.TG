@@ -53,7 +53,13 @@ namespace _3DEUX1.IMMOBILIER.TG.Services
                 var response = await _httpClient.GetAsync($"RefrechLogin/{token}");
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadFromJsonAsync<User>();
+                    var loginResponse = await response.Content.ReadFromJsonAsync<LoginResponse>();
+                    if (loginResponse != null)
+                    {
+                        // Stockez le token JWT
+                        await SecureStorage.SetAsync("jwt_token", loginResponse.Token!);
+                        return loginResponse.User;
+                    }
                 }
                 return null;
             }
