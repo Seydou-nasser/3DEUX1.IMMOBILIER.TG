@@ -44,7 +44,7 @@ namespace _3DEUX1.IMMOBILIER.TG.ViewModels
                 if (!NoValideEmail && !NoValidePasword && !NoValideConfirmPass)
                 {
                     
-                    var popup = new Views.PopupPersonalise(new PopupPersonaliseViewModel());
+                    var popup = new Views.PopupPersonalise(new ChargementPopupViewModel());
                     //Shell.Current.ShowPopup(popup);
                     App.Current!.MainPage!.ShowPopup(popup);
                     RegisterModelSend model = new() { EmailAddress = RegisterModel.EmailAddress, UserName = RegisterModel.UserName, Password = RegisterModel.ConfirmPassword };

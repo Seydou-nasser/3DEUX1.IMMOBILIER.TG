@@ -33,11 +33,11 @@ namespace _3DEUX1.IMMOBILIER.TG.ViewModels
         {
             if (!string.IsNullOrWhiteSpace(LoginModel.Email) && !string.IsNullOrWhiteSpace(LoginModel.Password))
             {
-                var popup = new Views.PopupPersonalise(new PopupPersonaliseViewModel());
+                var popup = new Views.PopupPersonalise(new ChargementPopupViewModel());
                 //Shell.Current.ShowPopup(popup);
                 App.Current!.MainPage!.ShowPopup(popup);
 
-                User user = await _userService.Login(LoginModel.Email, LoginModel.Password);
+                User? user = await _userService.Login(LoginModel.Email, LoginModel.Password);
 
                 popup.Close();
 

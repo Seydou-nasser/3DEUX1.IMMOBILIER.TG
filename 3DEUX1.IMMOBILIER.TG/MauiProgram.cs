@@ -28,7 +28,7 @@ namespace _3DEUX1.IMMOBILIER.TG
             builder.Services.AddSingleton<RegisterPageViewModel>();
             builder.Services.AddSingleton<RegisterPage>();
 
-            builder.Services.AddTransientPopup<PopupPersonalise, PopupPersonaliseViewModel>();
+            builder.Services.AddTransientPopup<ChargementPopup, ChargementPopupViewModel>();
             //builder.Services.AddSingleton<PopupPersonaliseViewModel>();
 
             builder.Services.AddSingleton<AccueilPage>();

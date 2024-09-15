@@ -210,7 +210,7 @@ namespace _3DEUX1.IMMOBILIER.TG.ViewModels
         private async Task UploadPost()
         {
             UserService userService = new UserService(new HttpClient());
-            var popup = new Views.PopupPersonalise(new PopupPersonaliseViewModel());
+            var popup = new Views.PopupPersonalise(new ChargementPopupViewModel());
             App.Current!.MainPage!.ShowPopup(popup);
             bool success = await userService.UploadPost(Post!);
             popup.Close();
