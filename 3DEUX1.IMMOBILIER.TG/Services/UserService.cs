@@ -136,10 +136,6 @@ namespace _3DEUX1.IMMOBILIER.TG.Services
             }
         }
 
-        public static async Task<string> GetJwtToken()
-        {
-            return await SecureStorage.Default.GetAsync("jwt_token") ?? string.Empty;
-        }
     }
 
 }

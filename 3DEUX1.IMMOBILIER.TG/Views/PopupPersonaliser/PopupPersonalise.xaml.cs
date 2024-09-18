@@ -4,11 +4,11 @@ namespace _3DEUX1.IMMOBILIER.TG.Views.PopupPersonaliser;
 
 public partial class ChargementPopup : CommunityToolkit.Maui.Views.Popup
 {
-	private readonly ChargementPopupViewModel? viewModel;
+	private readonly ChargementPopupViewModel? loginPageViewModel;
 	public ChargementPopup(ChargementPopupViewModel ViewModel)
 	{
 		InitializeComponent();
-        viewModel = ViewModel;
-		BindingContext = viewModel;
+        loginPageViewModel = ViewModel;
+		BindingContext = loginPageViewModel;
 	}
 }
