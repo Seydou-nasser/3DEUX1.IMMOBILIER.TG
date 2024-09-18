@@ -70,10 +70,10 @@ namespace _3DEUX1.IMMOBILIER.TG
             builder.Services.AddTransient<HttpClient>();
 
             builder.Services.AddTransient<JwtAuthenticationHandler>();
-            builder.Services.AddHttpClient("API", client => client.BaseAddress = new Uri(ApiData.GetApiBaseAddress()))
-                .AddHttpMessageHandler<JwtAuthenticationHandler>();
+            //builder.Services.AddHttpClient("API", client => client.BaseAddress = new Uri(ApiData.GetApiBaseAddress()))
+            //    .AddHttpMessageHandler<JwtAuthenticationHandler>();
 
-            builder.Services.AddSingleton(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("API"));
+            //builder.Services.AddSingleton(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("API"));
 
 #if DEBUG
             builder.Logging.AddDebug();
