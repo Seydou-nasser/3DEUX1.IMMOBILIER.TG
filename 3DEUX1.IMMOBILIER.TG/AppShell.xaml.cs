@@ -27,6 +27,8 @@ namespace _3DEUX1.IMMOBILIER.TG
             Routing.RegisterRoute(Routes.AllPost, typeof(AllPostPage));
             Routing.RegisterRoute(Routes.Menu, typeof(MenuPage));
             Routing.RegisterRoute(Routes.Management, typeof(ManagementPage));
+            Routing.RegisterRoute(Routes.Aide, typeof(AidePage));
+            Routing.RegisterRoute(Routes.MyPost, typeof(MyPostPage));
         }
 
         // Vérifie l'utilisateur et rafraîchit ses informations
@@ -54,14 +56,14 @@ namespace _3DEUX1.IMMOBILIER.TG
         // Retourne les éléments de la barre d'onglets pour les utilisateurs connectés
         private TabBarItem[] GetUserConnectedTabBar() => [
                 new TabBarItem(Icon: "accueil.png", typeof(AccueilPage), Title: "Accueil"),
-                new TabBarItem(Icon: "iconsajouter.png", typeof(AddPostPage), Title: "Ajout"),
+                //new TabBarItem(Icon: "iconsajouter.png", typeof(AddPostPage), Title: "Ajout"),
                 new TabBarItem(Icon: "menu.png", typeof(MenuPage), Title: "Menu"),
             ];
 
         // Retourne les éléments de la barre d'onglets pour les administrateurs
         private TabBarItem[] GetAdminTabBar() => [
                 new TabBarItem(Icon: "accueil.png", typeof(AccueilPage), Title: "Accueil"),
-                new TabBarItem(Icon: "iconsajouter.png", typeof(AddPostPage), Title: "Ajout"),
+                //new TabBarItem(Icon: "iconsajouter.png", typeof(AddPostPage), Title: "Ajout"),
                 new TabBarItem(Icon: "usergroups.png", typeof(ManagementPage), Title: "Management"),
                 new TabBarItem(Icon: "menu.png", typeof(MenuPage), Title: "Menu"),
             ];
@@ -130,4 +132,6 @@ public static class Routes
     public const string AllPost = nameof(AllPostPage);
     public const string Menu = nameof(MenuPage);
     public const string Management = nameof(ManagementPage);
+    public const string Aide = nameof(AidePage);
+    public const string MyPost = nameof(MyPostPage);
 }

@@ -71,7 +71,7 @@
                         <Image Source="chat.png" HeightRequest="30"/>
                         <Label Text="Message" FontSize="Subtitle" VerticalTextAlignment="Center" Margin="5"/>
                         </HorizontalStackLayout>-->
-                        <HorizontalStackLayout Margin="10">
+                        <HorizontalStackLayout Margin="0">
                             <Image Source="location.png" HeightRequest="30"/>
                             <!--<Label Text="Localisation" FontSize="Subtitle" VerticalTextAlignment="Center" Margin="5"/>-->
                             <Label Text="{Binding Post.Localisation}" FontSize="Subtitle" Margin="10,0,0,0" VerticalOptions="CenterAndExpand" VerticalTextAlignment="Center"/>

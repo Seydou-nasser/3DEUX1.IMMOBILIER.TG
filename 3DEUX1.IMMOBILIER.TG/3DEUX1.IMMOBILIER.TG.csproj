@@ -90,10 +90,19 @@
 	  <MauiXaml Update="Views\AddPostPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\AidePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\AllPostPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\ManagementPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\MyPostPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\PopupPersonaliser\ChoicePopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\PopupPersonaliser\ManagerPopup.xaml">
@@ -117,7 +126,7 @@
 	  <MauiXaml Update="Views\ParametrePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\PopupPersonaliser\PopupPersonalise.xaml">
+	  <MauiXaml Update="Views\PopupPersonaliser\ChargementPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\RegisterPage.xaml">
@@ -126,6 +135,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Views\PopupPersonaliser\ChargementPopup.xaml.cs">
+	    <DependentUpon>ChargementPopup.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\PostDetailPage.xaml.cs">
 	    <DependentUpon>PostDetailPage.xaml</DependentUpon>
 	  </Compile>

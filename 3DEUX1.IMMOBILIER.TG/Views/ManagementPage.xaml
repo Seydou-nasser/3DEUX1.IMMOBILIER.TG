@@ -16,7 +16,7 @@
                             Wrap="Wrap" JustifyContent="SpaceEvenly" Margin="10" Direction="Row" FlowDirection="LeftToRight">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate x:DataType="models:Post">
-                                <Frame Padding="0,0,0,0" Margin="0,0,0,10" BorderColor="Transparent" x:Name="Data">
+                                <Frame Padding="0,0,0,0" Margin="0,0,0,10" BorderColor="Black" x:Name="Data">
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:ManagementPageViewModel}},Path=ManagePopupCallCommand }" 
                                                           CommandParameter="{Binding .}"/>
@@ -95,6 +95,14 @@
                                                    FontSize="Subtitle" 
                                                    HorizontalOptions="EndAndExpand" />
                                             </StackLayout>
+                                            <HorizontalStackLayout Margin="0,10,0,0">
+                                                <Image Source="location.png" HeightRequest="30"/>
+                                                <!--<Label Text="Localisation" FontSize="Subtitle" VerticalTextAlignment="Center" Margin="5"/>-->
+                                                <Label Text="{Binding Localisation}" FontSize="Subtitle" Margin="10,0,0,0" VerticalOptions="CenterAndExpand" VerticalTextAlignment="Center"/>
+                                            </HorizontalStackLayout>
+                                            <Label Text="{Binding User}" FontSize="Subtitle" Margin="10,0,0,0" VerticalOptions="CenterAndExpand" VerticalTextAlignment="Center" HorizontalOptions="Center"/>
+
+
                                         </VerticalStackLayout>
                                     </Grid>
                                 </Frame>

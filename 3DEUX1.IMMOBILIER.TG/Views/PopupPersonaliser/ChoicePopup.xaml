@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="_3DEUX1.IMMOBILIER.TG.Views.PopupPersonaliser.ChoicePopup"
+               xmlns:view="clr-namespace:_3DEUX1.IMMOBILIER.TG.Views.PopupPersonaliser"
+               x:DataType="view:ChoicePopup"
+               xmlns:models="clr-namespace:_3DEUX1.IMMOBILIER.TG.Models">
+    <VerticalStackLayout BackgroundColor="White"
+                         Padding="5"
+                         Spacing="10">
+        <!-- <Label Text="Post" FontSize="Title" FontAttributes="Bold" HorizontalOptions="CenterAndExpand"/> -->
+        <StackLayout BindableLayout.ItemsSource="{Binding Values}">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate x:DataType="models:ChoicePopupArg">
+                    <Border Padding="0"
+                            Margin="15,5">
+                        <Grid ColumnDefinitions="auto,*"
+                              Margin="0"
+                              Padding="10"
+                              BackgroundColor="Transparent"
+                              HorizontalOptions="CenterAndExpand">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type view:ChoicePopup}},Path=NavigationToPageCommand}"
+                                                      CommandParameter="{Binding route}" />
+                            </Grid.GestureRecognizers>
+                            <Frame Padding="5"
+                                   CornerRadius="0"
+                                   Margin="0"
+                                   BorderColor="Transparent"
+                                   BackgroundColor="Transparent"
+                                   HeightRequest="30"
+                                   WidthRequest="30">
+                                <Image Source="{Binding image}"
+                                       Aspect="AspectFill" />
+                            </Frame>
+                            <VerticalStackLayout Grid.Column="1"
+                                                 VerticalOptions="CenterAndExpand">
+                                <Label Text="{Binding title}"
+                                       HorizontalOptions="Start"
+                                       FontSize="Subtitle" />
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </StackLayout>
+    </VerticalStackLayout>
+</toolkit:Popup>

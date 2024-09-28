@@ -7,27 +7,30 @@ public partial class AllPostPage : ContentPage
     private readonly AllPostPageViewModel viewModel;
 
     public AllPostPage(AllPostPageViewModel viewModel)
-	{
-		InitializeComponent();
-		BindingContext = viewModel;
+    {
+        InitializeComponent();
+        BindingContext = viewModel;
         this.viewModel = viewModel;
     }
 
     private void ScrollView_Scrolled(object sender, ScrolledEventArgs e)
     {
         var scrollView = sender as ScrollView;
+        if (scrollView == null) return;
 
-        // On récupère la hauteur totale du contenu
-        double scrollingSpace = scrollView!.ContentSize.Height - scrollView.Height;
+        // Calcul de l'espace de dÃ©filement restant
+        double remainingScrollSpace = scrollView.ContentSize.Height - (scrollView.Height + e.ScrollY);
 
-        // Si la position actuelle du scroll (scrollY) est proche ou égale à l'espace de défilement disponible
-        if (scrollingSpace <= e.ScrollY + 10)
+        // Seuil de dÃ©clenchement (en pixels)
+        const double threshold = 50;
+
+        // VÃ©rification si l'utilisateur est proche de la fin du ScrollView
+        if (remainingScrollSpace <= threshold)
         {
-            // L'utilisateur a atteint la fin du ScrollView
-            Console.WriteLine("Arrivé à la fin du ScrollView");
+            // L'utilisateur est proche de la fin du ScrollView
+            Console.WriteLine("Proche de la fin du ScrollView");
             viewModel.LoadDataByScroll();
-            // Place ton code ici pour déclencher une action lorsque l'utilisateur arrive à la fin
+            // Vous pouvez ajouter d'autres actions ici si nÃ©cessaire
         }
-
     }
 }

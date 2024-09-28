@@ -14,10 +14,10 @@
             <VerticalStackLayout Background="Transparent" ZIndex="10">
                 <Label Text="Management" FontSize="Subtitle" HorizontalOptions="Center"/>
 
-                <Button Text="Envoyer" BackgroundColor="Gray" Margin="20" VerticalOptions="EndAndExpand" 
+                <Button Text="Autoriser" BackgroundColor="Gray" Margin="20" VerticalOptions="EndAndExpand" 
                         Command="{Binding EnvoyerCommand}"/>
 
-                <Button Text="Previsualiser le rendu !" BackgroundColor="Gray" Margin="20" VerticalOptions="EndAndExpand" 
+                <Button Text="Previsualiser!" BackgroundColor="Gray" Margin="20" VerticalOptions="EndAndExpand" 
                         Command="{Binding PrevisualisationCommand}"/>
             </VerticalStackLayout>
         </Border>

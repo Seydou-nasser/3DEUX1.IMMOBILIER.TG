@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="_3DEUX1.IMMOBILIER.TG.Views.MyPostPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:vm="clr-namespace:_3DEUX1.IMMOBILIER.TG.ViewModels"
+             x:DataType="vm:MyPostPageViewModel"
+             xmlns:models="clr-namespace:_3DEUX1.IMMOBILIER.TG.Models"
+             Title="MyPostPage">
+    <ScrollView VerticalScrollBarVisibility="Never"
+                x:Name="MainScrollView">
+        <ScrollView.Behaviors>
+            <toolkit:EventToCommandBehavior EventName="Scrolled"
+                                            Command="{Binding ScrollToEndCommand}"
+                                            CommandParameter="{Binding Source={x:Reference MainScrollView}}" />
+        </ScrollView.Behaviors>
+        <StackLayout>
+            <Grid toolkit:StateContainer.CurrentState="{Binding CurrentState}"
+                  VerticalOptions="CenterAndExpand">
+                <toolkit:StateContainer.StateViews>
+                    <FlexLayout BindableLayout.ItemsSource="{Binding Posts}"
+                                toolkit:StateView.StateKey="Success"
+                                Wrap="Wrap"
+                                JustifyContent="SpaceEvenly"
+                                Margin="10"
+                                Direction="Row"
+                                FlowDirection="LeftToRight">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="models:Post">
+                                <Frame Padding="0,0,0,0"
+                                       Margin="0,0,0,10"
+                                       BorderColor="Transparent"
+                                       x:Name="Data">
+                                    <Grid RowDefinitions="250,auto"
+                                          MaximumWidthRequest="350">
+                                        <Button Text="Supprimer"
+                                                BackgroundColor="#ff1000"
+                                                TextColor="White"
+                                                CornerRadius="20"
+                                                Padding="20,10"
+                                                HorizontalOptions="End"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MyPostPageViewModel}}, Path=ConfirmDeletePostCommand}"
+                                                CommandParameter="{Binding .}" />
+                                        <Frame Padding="0"
+                                               BorderColor="Transparent">
+                                            <CarouselView IndicatorView="indicatorView"
+                                                          ItemsSource="{Binding Images}"
+                                                          x:Name="Test">
+                                                <CarouselView.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Grid>
+                                                            <!-- <Grid.GestureRecognizers>
+                                                                <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:AllPostPageViewModel}},Path=GotoAnnoncePageCommand }"
+                                                                                      CommandParameter="{Binding Source={Reference Name=Data}, Path=BindingContext}"/>
+                                                            </Grid.GestureRecognizers> -->
+                                                            <Border StrokeShape="RoundRectangle 10"
+                                                                    StrokeThickness="0">
+                                                                <Image x:Name="Image"
+                                                                       Source="{Binding ., Converter={StaticResource Base64ToImageConverter}}"
+                                                                       Aspect="AspectFill"
+                                                                       BackgroundColor="SlateGray" />
+                                                            </Border>
+                                                            <ActivityIndicator IsVisible="{Binding Source={x:Reference Image}, Path=IsLoading}"
+                                                                               IsRunning="{Binding Source={x:Reference Image}, Path=IsLoading}"
+                                                                               Color="#148fe9"
+                                                                               VerticalOptions="CenterAndExpand"
+                                                                               HorizontalOptions="CenterAndExpand"
+                                                                               HeightRequest="50"
+                                                                               WidthRequest="50" />
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </CarouselView.ItemTemplate>
+                                            </CarouselView>
+                                        </Frame>
+                                        <IndicatorView x:Name="indicatorView"
+                                                       IndicatorColor="LightGray"
+                                                       SelectedIndicatorColor="Gray"
+                                                       Margin="0,0,0,20"
+                                                       IndicatorSize="10"
+                                                       HorizontalOptions="Center"
+                                                       VerticalOptions="End"
+                                                       BackgroundColor="Transparent" />
+                                        <VerticalStackLayout Grid.Row="1"
+                                                             Margin="5,0,5,5">
+                                            <!-- Description -->
+                                            <Label Text="{Binding Name}"
+                                                   FontSize="Subtitle"
+                                                   VerticalTextAlignment="Center"
+                                                   Grid.Row="1"
+                                                   HorizontalOptions="StartAndExpand"
+                                                   FontAttributes="Bold" />
+                                            <HorizontalStackLayout Margin="0">
+                                                <Image Source="location.png"
+                                                       HeightRequest="30" />
+                                                <Label Text="{Binding Localisation}"
+                                                       FontSize="Subtitle"
+                                                       Margin="10,0,0,0"
+                                                       VerticalOptions="CenterAndExpand"
+                                                       VerticalTextAlignment="Center" />
+                                            </HorizontalStackLayout>
+                                            <StackLayout Spacing="5"
+                                                         Margin="0,5,0,0"
+                                                         Orientation="Horizontal">
+                                                <Label Text="{Binding DateTime , Converter={StaticResource FormatageDate}}"
+                                                       VerticalTextAlignment="Center"
+                                                       FontSize="Subtitle" />
+                                                <Label Text="{Binding Prix,StringFormat='{0} CFA/Mois'}"
+                                                       VerticalTextAlignment="Center"
+                                                       FontSize="Subtitle"
+                                                       HorizontalOptions="EndAndExpand" />
+                                            </StackLayout>
+                                        </VerticalStackLayout>
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </FlexLayout>
+                    <ActivityIndicator toolkit:StateView.StateKey="Loading"
+                                       IsEnabled="True"
+                                       IsRunning="True"
+                                       Color="Green"
+                                       WidthRequest="50"
+                                       HeightRequest="50"
+                                       VerticalOptions="CenterAndExpand" />
+                    <StackLayout toolkit:StateView.StateKey="Empty"
+                                 Spacing="20"
+                                 VerticalOptions="CenterAndExpand">
+                        <Image Source="empty_icon.png"
+                               HeightRequest="100"
+                               WidthRequest="100" />
+                        <Label Text="Aucune donnée disponible"
+                               FontSize="Title"
+                               HorizontalOptions="Center"
+                               TextColor="#666666"
+                               FontAttributes="Bold" />
+                        <Label Text="Il semble qu'il n'y ait aucune donnée à afficher pour le moment..."
+                               FontSize="Subtitle"
+                               HorizontalOptions="Center"
+                               TextColor="#999999"
+                               HorizontalTextAlignment="Center" />
+                        <Button Text="Réessayer"
+                                BackgroundColor="#4CAF50"
+                                TextColor="White"
+                                CornerRadius="20"
+                                Padding="20,10"
+                                HorizontalOptions="Center"
+                                Command="{Binding TryLoadDataCommand}" />
+                    </StackLayout>
+                </toolkit:StateContainer.StateViews>
+            </Grid>
+            <ActivityIndicator IsEnabled="{Binding IsBusy}"
+                               IsRunning="{Binding IsBusy}"
+                               IsVisible="{Binding IsBusy}"
+                               Color="Green"
+                               WidthRequest="30"
+                               HeightRequest="30"
+                               Margin="10" />
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

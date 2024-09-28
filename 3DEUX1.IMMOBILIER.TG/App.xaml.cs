@@ -10,17 +10,17 @@ namespace _3DEUX1.IMMOBILIER.TG
         // Propriété statique pour stocker l'utilisateur actuel
         public static User? AppUser { get; set; }
 
-        public App()
+        public App(LoginPage loginPage)
         {
             InitializeComponent();
             // Définit la page principale en fonction de la vérification de l'utilisateur
-            MainPage = IsUserVerified() ? new AppShell() : new LoginPage(new ViewModels.LoginPageViewModel());
+            MainPage = IsUserVerified() ? new AppShell() : loginPage;
         }
 
         // Vérifie si l'utilisateur est authentifié
         private bool IsUserVerified()
         {
-            return new UserService(new HttpClient()).UserVerifier().Result;
+            return new UserService(new HttpClient()).UserVerifier();
         }
 
         // Méthode de vérification asynchrone de l'utilisateur (actuellement commentée)

@@ -103,5 +103,25 @@ namespace _3DEUX1.IMMOBILIER.TG.Services
                 return false;
             }
         }
+
+        // Méthode pour récupérer les posts par email
+        public async Task<List<Post>> GetPostsByEmail(string email, int page)
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync($"Post/GetPostsByUser/{email}?pageNumber={page}");
+                if (response.IsSuccessStatusCode)
+                {
+                    var resString = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<List<Post>>(resString) ?? new List<Post>();
+                }
+                return new List<Post>();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erreur lors de la récupération des posts par email : {ex.Message}");
+                return new List<Post>();
+            }
+        }
     }
 }

@@ -12,10 +12,11 @@
         <StackLayout>
             <Border Padding="0" BackgroundColor="#38a96b" Margin="0,0,0,10" StrokeThickness="0" StrokeShape="RoundRectangle 0,0,10,10">
                 <Grid BackgroundColor="#38a96b" ColumnDefinitions="auto,*,auto">
-                    <toolkit:AvatarView ImageSource="test.png" HeightRequest="70" WidthRequest="70" CornerRadius="100" />
+                    <toolkit:AvatarView ImageSource="user.png" HeightRequest="70" WidthRequest="70"
+                                        CornerRadius="100" />
                     <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center">
                         <Label Text="{Binding UserMenuPage.UserName}" FontSize="Title" HorizontalOptions="CenterAndExpand"/>
-                        <Label Text="{Binding UserMenuPage.Role[0]}" FontSize="Subtitle" HorizontalOptions="CenterAndExpand" TextColor="White"/>
+                        <!--<Label Text="{Binding UserMenuPage.Role[0]}" FontSize="Subtitle" HorizontalOptions="CenterAndExpand" TextColor="White"/>-->
                     </VerticalStackLayout>
                     <Image Grid.Column="2" Source="bell.png" HeightRequest="30" VerticalOptions="Start" Margin="10"/>
                     <Label Grid.Column="2" Text="+12" HorizontalTextAlignment="End" Margin="5" TextColor="Red" FontAttributes="Bold"/>
@@ -28,8 +29,9 @@
                         <toolkit:TouchBehavior DefaultAnimationDuration="100" PressedBackgroundColor="LightGray" Command="{Binding ToLoginPageCommand}"/>
                     </Frame.Behaviors>
                     <Grid ColumnDefinitions="auto,*,auto">
-                        <Frame Padding="0" CornerRadius="70" Margin="10" BorderColor="White" BackgroundColor="#0689ff" HeightRequest="45" WidthRequest="48">
-                            <Image Source="user.png" HeightRequest="20" WidthRequest="25" Aspect="AspectFill"/>
+                        <Frame Padding="5" CornerRadius="70" Margin="10" BorderColor="White" 
+                               BackgroundColor="Transparent" HeightRequest="45" WidthRequest="48">
+                            <Image Source="utilisateur.png" Aspect="AspectFill"/>
                         </Frame>
                         <VerticalStackLayout Grid.Column="1" VerticalOptions="CenterAndExpand">
                             <Label Text="Mon Compte" FontSize="Subtitle" FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
@@ -39,18 +41,36 @@
                     </Grid>
                 </Frame>
 
-                <!--<Frame Padding="0" BackgroundColor="White" CornerRadius="10" >
+                <Frame Padding="0" BackgroundColor="White" CornerRadius="10" IsVisible="{Binding ShowAddPost}" >
+                    <Frame.Behaviors>
+                        <toolkit:TouchBehavior DefaultAnimationDuration="100" PressedBackgroundColor="LightGray" Command="{Binding ToAddPostPageCommand}"/>
+                    </Frame.Behaviors>
                     <Grid ColumnDefinitions="auto,*,auto">
-                        <Frame Padding="0" CornerRadius="70" Margin="10" BorderColor="White" BackgroundColor="#fe7c06" HeightRequest="45" WidthRequest="48">
-                            <Image Source="bell.png" HeightRequest="20" WidthRequest="25" Aspect="AspectFill"/>
+                        <Frame Padding="5" CornerRadius="0" Margin="10" BorderColor="White" BackgroundColor="Transparent" HeightRequest="45" WidthRequest="48">
+                            <Image Source="iconsajouter.png" Aspect="AspectFill"/>
                         </Frame>
                         <VerticalStackLayout Grid.Column="1" VerticalOptions="CenterAndExpand">
-                            <Label Text="Alertes et notification" FontSize="Subtitle" FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
-                            <Label Text="Annonces des services et articles recentes" HorizontalOptions="Start" FontSize="Caption"/>
+                            <Label Text="Post" FontSize="Subtitle" FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
+                            <Label Text="Ajouter des posts, mes posts" HorizontalOptions="Start" FontSize="Caption"/>
                         </VerticalStackLayout>
                         <Image Grid.Column="2" Margin="10" Grid.RowSpan="2" Source="next.png" HeightRequest="30" BackgroundColor="Transparent" />
                     </Grid>
-                </Frame>-->
+                </Frame>
+                <Frame Padding="0" BackgroundColor="White" CornerRadius="10" >
+                    <Frame.Behaviors>
+                        <toolkit:TouchBehavior DefaultAnimationDuration="100" PressedBackgroundColor="LightGray" Command="{Binding ToAidePageCommand}"/>
+                    </Frame.Behaviors>
+                    <Grid ColumnDefinitions="auto,*,auto">
+                        <Frame Padding="5" CornerRadius="70" Margin="10" BorderColor="White" BackgroundColor="Transparent" HeightRequest="45" WidthRequest="48">
+                            <Image Source="icoinformation.png" Aspect="AspectFill"/>
+                        </Frame>
+                        <VerticalStackLayout Grid.Column="1" VerticalOptions="CenterAndExpand">
+                            <Label Text="Aide" FontSize="Subtitle" FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
+                            <Label Text="Contactez-nous, Politique de confidentialité" HorizontalOptions="Start" FontSize="Caption"/>
+                        </VerticalStackLayout>
+                        <Image Grid.Column="2" Margin="10" Grid.RowSpan="2" Source="next.png" HeightRequest="30" BackgroundColor="Transparent" />
+                    </Grid>
+                </Frame>
             </VerticalStackLayout>
 
             

@@ -11,7 +11,7 @@ namespace _3DEUX1.IMMOBILIER.TG.Helpers
         public static Task NavigateAsync(string route, Dictionary<string, object> parammeter = null!)
         {
             if (parammeter == null)
-                return Shell.Current.GoToAsync(route, null);
+                return Shell.Current.GoToAsync(route);
             else
                 return Shell.Current.GoToAsync(route, parammeter);
         }

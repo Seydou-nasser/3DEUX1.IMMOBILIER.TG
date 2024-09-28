@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="_3DEUX1.IMMOBILIER.TG.Views.AidePage"
+             Title="AidePage"
+             >
+    <VerticalStackLayout>
+        <Grid ColumnDefinitions="auto,*" RowDefinitions="auto,auto" BackgroundColor="Transparent" Margin="5">
+            <Image HeightRequest="30" WidthRequest="30" Source="icoinformation.png" 
+                   Grid.RowSpan="2" Margin="20,0,20,0"/>
+            <Label Grid.Column="1" Text="Centre d'aide" FontSize="Subtitle"/>
+            <Label Grid.Column="1" Grid.Row="1" Text="Obtenir de l'aide, nous contacter" TextColor="Gray" FontSize="Subtitle"/>
+        </Grid>
+        <Grid>
+            
+        </Grid>
+    </VerticalStackLayout>
+</ContentPage>

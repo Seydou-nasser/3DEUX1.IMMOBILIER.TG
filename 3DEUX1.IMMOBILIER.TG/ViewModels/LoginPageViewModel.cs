@@ -1,6 +1,7 @@
 ﻿using _3DEUX1.IMMOBILIER.TG.Models;
 using _3DEUX1.IMMOBILIER.TG.Services;
 using _3DEUX1.IMMOBILIER.TG.Views;
+using _3DEUX1.IMMOBILIER.TG.Views.PopupPersonaliser;
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -33,7 +34,7 @@ namespace _3DEUX1.IMMOBILIER.TG.ViewModels
         {
             if (!string.IsNullOrWhiteSpace(LoginModel.Email) && !string.IsNullOrWhiteSpace(LoginModel.Password))
             {
-                var popup = new Views.PopupPersonalise(new ChargementPopupViewModel());
+                var popup = new ChargementPopup();
                 //Shell.Current.ShowPopup(popup);
                 App.Current!.MainPage!.ShowPopup(popup);
 
@@ -57,13 +58,13 @@ namespace _3DEUX1.IMMOBILIER.TG.ViewModels
             await CreatSnackBar.SnackBarShow("veuillez mettre un email et mot de passe !");
         }
         [RelayCommand]
-        public void GoToRegisterPage()
+        public void GoToRegisterPage(RegisterPage registerPage)
         {
             //await Shell.Current.GoToAsync(nameof(Views.RegisterPage), true);
-            App.Current!.MainPage = new RegisterPage(new RegisterPageViewModel());
+            App.Current!.MainPage = registerPage;
         }
         [RelayCommand]
-        public void Skipe() 
+        public void Skipe()
         {
             //await Shell.Current.GoToAsync(nameof(Views.AccueilPage), true);
             App.Current!.MainPage = new AppShell();

@@ -33,34 +33,36 @@ namespace _3DEUX1.IMMOBILIER.TG
             builder.Services.AddSingleton<RegisterPageViewModel>();
             builder.Services.AddSingleton<RegisterPage>();
 
-            builder.Services.AddTransientPopup<ChargementPopup, ChargementPopupViewModel>();
+            builder.Services.AddTransient<ChargementPopup>();
+            builder.Services.AddTransient<AidePage>();
             //builder.Services.AddSingleton<PopupPersonaliseViewModel>();
 
-            builder.Services.AddSingleton<AccueilPage>();
-            builder.Services.AddSingleton<AccueilPageViewModel>();
+            builder.Services.AddSingleton<AccueilPage, AccueilPageViewModel>();
 
-            builder.Services.AddSingleton<ChatPage>();
-            builder.Services.AddSingleton<ChatPageViewModel>();
+            //builder.Services.AddSingleton<ChatPage,ChatPageViewModel>();
 
-            builder.Services.AddTransient<PostDetailPage>();
-            builder.Services.AddTransient<PostDetailPageViewModel>();
+            builder.Services.AddTransient<PostDetailPage, PostDetailPageViewModel>();
+            //builder.Services.AddTransient<PostDetailPageViewModel>();
 
-            builder.Services.AddSingleton<ParametrePage>();
-            builder.Services.AddSingleton<ParametrePageViewModel>();
+            builder.Services.AddSingleton<ParametrePage, ParametrePageViewModel>();
+            //builder.Services.AddSingleton<ParametrePageViewModel>();
 
-            builder.Services.AddSingleton<AddPostPage>();
-            builder.Services.AddSingleton<AddPostPageViewModel>();
+            builder.Services.AddTransient<AddPostPage, AddPostPageViewModel>();
+            //builder.Services.AddSingleton<AddPostPageViewModel>();
 
-            builder.Services.AddSingleton<MenuPage>();
-            builder.Services.AddSingleton<MenuPageViewModel>();
+            builder.Services.AddSingleton<MenuPage, MenuPageViewModel>();
+            //builder.Services.AddSingleton<MenuPageViewModel>();
 
-            builder.Services.AddTransient<AllPostPage>();
-            builder.Services.AddTransient<AllPostPageViewModel>();
+            builder.Services.AddTransient<AllPostPage, AllPostPageViewModel>();
+            //builder.Services.AddTransient<AllPostPageViewModel>();
 
-            builder.Services.AddSingleton<ManagementPage>();
-            builder.Services.AddSingleton<ManagementPageViewModel>();
+            builder.Services.AddSingleton<ManagementPage, ManagementPageViewModel>();
+            //builder.Services.AddSingleton<ManagementPageViewModel>();
+
+            builder.Services.AddScoped<MyPostPage, MyPostPageViewModel>();
 
             builder.Services.AddSingleton<IUserService, UserService>();
+            builder.Services.AddSingleton<IDialogService, DialogService>();
             builder.Services.AddSingleton<PartageService>();
             builder.Services.AddSingleton<AdminZoneService>();
             builder.Services.AddSingleton<IPostService, PostService>();
@@ -69,7 +71,7 @@ namespace _3DEUX1.IMMOBILIER.TG
 
             builder.Services.AddTransient<HttpClient>();
 
-            builder.Services.AddTransient<JwtAuthenticationHandler>();
+            //builder.Services.AddTransient<JwtAuthenticationHandler>();
             //builder.Services.AddHttpClient("API", client => client.BaseAddress = new Uri(ApiData.GetApiBaseAddress()))
             //    .AddHttpMessageHandler<JwtAuthenticationHandler>();
 

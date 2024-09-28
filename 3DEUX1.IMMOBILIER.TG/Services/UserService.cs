@@ -1,5 +1,4 @@
 ﻿using _3DEUX1.IMMOBILIER.TG.Models;
-using _3DEUX1.IMMOBILIER.TG.Models.Models;
 using Newtonsoft.Json;
 using System.Net.Http.Json;
 
@@ -23,17 +22,11 @@ namespace _3DEUX1.IMMOBILIER.TG.Services
         {
             try
             {
-                var loginModel = new LoginModel() { Email =  email, Password = password };
-                var response = await _httpClient.PostAsJsonAsync("login",loginModel);
+                LoginModel model = new LoginModel() { Email=email, Password = password };
+                var response = await _httpClient.PostAsJsonAsync("Login",model);
                 if (response.IsSuccessStatusCode)
                 {
-                    var loginResponse = await response.Content.ReadFromJsonAsync<LoginAndTokenResponse>();
-                    if (loginResponse != null)
-                    {
-                        // Stockez le token JWT
-                        await SecureStorage.Default.SetAsync("jwt_token", loginResponse.Token!);
-                        return loginResponse.User;
-                    }
+                    return await response.Content.ReadFromJsonAsync<User>();
                 }
 
                 await Application.Current!.MainPage!.DisplayAlert(email, await response.Content.ReadAsStringAsync(), "OK");
@@ -52,16 +45,11 @@ namespace _3DEUX1.IMMOBILIER.TG.Services
         {
             try
             {
-                var response = await _httpClient.GetAsync($"RefrechLogin/{email}");
+                if (string.IsNullOrEmpty(email)) return null;
+                var response = await _httpClient.GetAsync($"{email}");
                 if (response.IsSuccessStatusCode)
                 {
-                    var loginResponse = await response.Content.ReadFromJsonAsync<LoginAndTokenResponse>();
-                    if (loginResponse != null)
-                    {
-                        // Stockez le token JWT
-                        await SecureStorage.SetAsync("jwt_token", loginResponse.Token!);
-                        return loginResponse.User;
-                    }
+                    return await response.Content.ReadFromJsonAsync<User>();
                 }
                 return null;
             }
@@ -98,19 +86,20 @@ namespace _3DEUX1.IMMOBILIER.TG.Services
         }
 
         // Méthode pour vérifier si un utilisateur est connecté
-        public async Task<bool> UserVerifier()
+        public bool UserVerifier()
         {
-            //var token = await GetJwtToken();
-            //if (!string.IsNullOrEmpty(token))
-            //{
-            //    // Vérifiez la validité du token (vous pouvez ajouter une méthode pour vérifier le token côté serveur)
-            //    var user = await RefrechLogin(token);
-            //    if (user != null)
-            //    {
-            //        App.AppUser = user;
-            //        return true;
-            //    }
-            //}
+            if (Preferences.Default.ContainsKey(nameof(App.AppUser)))
+            {
+                try
+                {
+                    App.AppUser = JsonConvert.DeserializeObject<User>(Preferences.Get(nameof(App.AppUser), null!));
+                    return App.AppUser != null;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
             return false;
         }
 
@@ -137,5 +126,4 @@ namespace _3DEUX1.IMMOBILIER.TG.Services
         }
 
     }
-
 }

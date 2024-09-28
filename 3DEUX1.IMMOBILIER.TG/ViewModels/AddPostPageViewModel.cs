@@ -2,6 +2,7 @@
 using _3DEUX1.IMMOBILIER.TG.Models;
 using _3DEUX1.IMMOBILIER.TG.Services;
 using _3DEUX1.IMMOBILIER.TG.Views;
+using _3DEUX1.IMMOBILIER.TG.Views.PopupPersonaliser;
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -92,7 +93,7 @@ namespace _3DEUX1.IMMOBILIER.TG.ViewModels
             await NavigationHelper.NavigateAsync(nameof(PostDetailPage), new Dictionary<string, object>
             {
                 { "PostDetails", Post! }
-            });        
+            });
         }
 
         // Méthode pour affecter les valeurs au post
@@ -141,7 +142,7 @@ namespace _3DEUX1.IMMOBILIER.TG.ViewModels
             Post.Images = new List<string>();
             Prix = null!;
             Images.Clear();
-            Avance =string.Empty;
+            Avance = string.Empty;
         }
 
         // Commande pour sélectionner des images
@@ -197,10 +198,10 @@ namespace _3DEUX1.IMMOBILIER.TG.ViewModels
         // Méthode pour valider le post
         private bool ValidatePost()
         {
-            return Post!.Categories != null && 
-                   Post.Type != null && 
-                   Post.Images!.Any() && 
-                   !string.IsNullOrEmpty(Chambre) && 
+            return Post!.Categories != null &&
+                   Post.Type != null &&
+                   Post.Images!.Any() &&
+                   !string.IsNullOrEmpty(Chambre) &&
                    !string.IsNullOrEmpty(Superficie) &&
                    !string.IsNullOrEmpty(Localisation) &&
                    !string.IsNullOrEmpty(Description);
@@ -210,7 +211,7 @@ namespace _3DEUX1.IMMOBILIER.TG.ViewModels
         private async Task UploadPost()
         {
             UserService userService = new UserService(new HttpClient());
-            var popup = new Views.PopupPersonalise(new ChargementPopupViewModel());
+            var popup = new ChargementPopup();
             App.Current!.MainPage!.ShowPopup(popup);
             bool success = await userService.UploadPost(Post!);
             popup.Close();

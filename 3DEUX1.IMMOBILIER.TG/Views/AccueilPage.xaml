@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
@@ -6,285 +6,491 @@
              xmlns:models="clr-namespace:_3DEUX1.IMMOBILIER.TG.Models"
              xmlns:NControls="clr-namespace:_3DEUX1.IMMOBILIER.TG.NewControls"
              xmlns:vm="clr-namespace:_3DEUX1.IMMOBILIER.TG.ViewModels"
-             x:DataType="vm:AccueilPageViewModel" 
+             x:DataType="vm:AccueilPageViewModel"
              Shell.NavBarIsVisible="False"
              Shell.TabBarIsVisible="True"
              BackgroundColor="White">
-    
-    <!--<Shell.TitleView>
+    <!-- <Shell.TitleView>
      
-    </Shell.TitleView>-->
+    </Shell.TitleView> -->
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style TargetType="Label">
-                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="TextColor"
+                        Value="Black" />
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
-
-    <ScrollView VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never" >
+    <ScrollView VerticalScrollBarVisibility="Never"
+                HorizontalScrollBarVisibility="Never">
         <Grid toolkit:StateContainer.CurrentState="{Binding CurrentState}"
-              Margin="8" BackgroundColor="White" RowSpacing="10">
-            <!--Les 5 dernier post-->
+              Margin="8"
+              BackgroundColor="White"
+              RowSpacing="10">
+            <!-- Les 5 dernier post -->
             <toolkit:StateContainer.StateViews>
-
-                <!--Vue pour afficher le donner-->
-                <Grid RowDefinitions="*,auto" toolkit:StateView.StateKey="Success" RowSpacing="5">
-                    <CarouselView ItemsSource="{Binding Posts}" IndicatorView="indicatorView">
-
+                <!-- Vue pour afficher le donner -->
+                <Grid RowDefinitions="*,auto"
+                      toolkit:StateView.StateKey="Success"
+                      RowSpacing="5">
+                    <CarouselView ItemsSource="{Binding Posts}"
+                                  IndicatorView="indicatorView">
                         <CarouselView.ItemTemplate>
-                            <DataTemplate x:DataType="models:Post" >
-
-                                <Grid RowDefinitions="3*,*" Margin="10" >
+                            <DataTemplate x:DataType="models:Post">
+                                <Grid RowDefinitions="3*,*"
+                                      Margin="10">
                                     <Grid.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:AccueilPageViewModel}},Path=GotoAnnoncePageCommand }" 
-                                                                  CommandParameter="{Binding .}"/>
+                                        <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:AccueilPageViewModel}},Path=GotoAnnoncePageCommand }"
+                                                              CommandParameter="{Binding .}" />
                                     </Grid.GestureRecognizers>
-
-                                    <Border StrokeShape="RoundRectangle 10" BackgroundColor="LightGray">
-                                        <Image x:Name="Image" Source="{Binding Images[0], Converter={StaticResource Base64ToImageConverter}}" 
-                                                   Aspect="AspectFill" BackgroundColor="LightGray"/>
+                                    <Border StrokeShape="RoundRectangle 10"
+                                            BackgroundColor="LightGray">
+                                        <Image x:Name="Image"
+                                               Source="{Binding Images[0], Converter={StaticResource Base64ToImageConverter}}"
+                                               Aspect="AspectFill"
+                                               BackgroundColor="LightGray" />
                                     </Border>
-                                    <ActivityIndicator IsVisible="{Binding Source={x:Reference Image}, Path= IsLoading }" 
-                                                           IsRunning="{Binding Source={x:Reference Image}, Path= IsLoading }" 
-                                                           Color="#148fe9"
-                                                           VerticalOptions="CenterAndExpand"
-                                                           HorizontalOptions="CenterAndExpand" HeightRequest="50" 
-                                                           WidthRequest="50"/>
-
-                                    <Frame BorderColor="Transparent" CornerRadius="50" VerticalOptions="StartAndExpand" 
-                                               HorizontalOptions="EndAndExpand" BackgroundColor="Transparent" Padding="0"
-                                               Margin="10" >
+                                    <ActivityIndicator IsVisible="{Binding Source={x:Reference Image}, Path= IsLoading }"
+                                                       IsRunning="{Binding Source={x:Reference Image}, Path= IsLoading }"
+                                                       Color="#148fe9"
+                                                       VerticalOptions="CenterAndExpand"
+                                                       HorizontalOptions="CenterAndExpand"
+                                                       HeightRequest="50"
+                                                       WidthRequest="50" />
+                                    <Frame BorderColor="Transparent"
+                                           CornerRadius="50"
+                                           VerticalOptions="StartAndExpand"
+                                           HorizontalOptions="EndAndExpand"
+                                           BackgroundColor="Transparent"
+                                           Padding="0"
+                                           Margin="10">
                                         <Frame.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:AccueilPageViewModel}},Path=GotoAnnoncePageCommand }" CommandParameter="{Binding .}"/>
+                                            <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:AccueilPageViewModel}},Path=GotoAnnoncePageCommand }"
+                                                                  CommandParameter="{Binding .}" />
                                         </Frame.GestureRecognizers>
-                                        <Image Source="droite.png" HeightRequest="25" WidthRequest="25"/>
+                                        <Image Source="droite.png"
+                                               HeightRequest="25"
+                                               WidthRequest="25" />
                                     </Frame>
-                                    <Image Source="like.png" HeightRequest="25" WidthRequest="25" 
-                                               HorizontalOptions="EndAndExpand" VerticalOptions="EndAndExpand"
-                                               Margin="10"/>
+                                    <Image Source="like.png"
+                                           HeightRequest="25"
+                                           WidthRequest="25"
+                                           HorizontalOptions="EndAndExpand"
+                                           VerticalOptions="EndAndExpand"
+                                           Margin="10" />
                                     <VerticalStackLayout Grid.Row="1">
-                                        <!--<StackLayout Spacing="5" Margin="0,5,0,0" Orientation="Horizontal">
+                                        <!-- <StackLayout Spacing="5" Margin="0,5,0,0" Orientation="Horizontal">
                                             <ImageButton Source="chat.png" HeightRequest="25" WidthRequest="25" />
-                                            <Label Text="Message" VerticalTextAlignment="Center" FontSize="Subtitle"/>
-                                            --><!--Name--><!--
-                                            <Label Text="{Binding Name}" FontSize="Subtitle" VerticalTextAlignment="Center" 
+                                            <Label Text="Message" VerticalTextAlignment="Center" FontSize="Subtitle"/> -->
+                                        <!-- Name -->
+                                        <!-- <Label Text="{Binding Name}" FontSize="Subtitle" VerticalTextAlignment="Center" 
                                                        HorizontalOptions="EndAndExpand"/>
-                                        </StackLayout>-->
-                                        <Label Text="{Binding Name}" FontSize="Title" VerticalTextAlignment="Center" 
-                                               HorizontalOptions="StartAndExpand"/>
-                                        <StackLayout Spacing="5" Margin="0,5,0,0" Orientation="Horizontal">
-                                            <ImageButton Source="location.png" HeightRequest="25" WidthRequest="25" />
-                                            <Label Text="Localisation" VerticalTextAlignment="Center" FontSize="Subtitle"/>
-
-                                            <Label Text="{Binding Localisation}" VerticalTextAlignment="Center" FontSize="Subtitle" 
-                                                       HorizontalOptions="EndAndExpand" />
+                                        </StackLayout> -->
+                                        <Label Text="{Binding Name}"
+                                               FontSize="Title"
+                                               VerticalTextAlignment="Center"
+                                               HorizontalOptions="StartAndExpand" />
+                                        <StackLayout Spacing="5"
+                                                     Margin="0,5,0,0"
+                                                     Orientation="Horizontal">
+                                            <ImageButton Source="location.png"
+                                                         HeightRequest="25"
+                                                         WidthRequest="25" />
+                                            <Label Text="Localisation"
+                                                   VerticalTextAlignment="Center"
+                                                   FontSize="Subtitle" />
+                                            <Label Text="{Binding Localisation}"
+                                                   VerticalTextAlignment="Center"
+                                                   FontSize="Subtitle"
+                                                   HorizontalOptions="EndAndExpand" />
                                         </StackLayout>
-                                        <StackLayout Spacing="5" Margin="0,5,0,0" Orientation="Horizontal">
-                                            <Label Text="{Binding DateTime , Converter={StaticResource FormatageDate}}" VerticalTextAlignment="Center" FontSize="Subtitle"/>
-
-                                            <Label Text="{Binding Prix,StringFormat='{0} CFA/Mois'}" VerticalTextAlignment="Center" FontSize="Subtitle" 
-                                                       HorizontalOptions="EndAndExpand"/>
+                                        <StackLayout Spacing="5"
+                                                     Margin="0,5,0,0"
+                                                     Orientation="Horizontal">
+                                            <Label Text="{Binding DateTime , Converter={StaticResource FormatageDate}}"
+                                                   VerticalTextAlignment="Center"
+                                                   FontSize="Subtitle" />
+                                            <Label Text="{Binding Prix,StringFormat='{0} CFA/Mois'}"
+                                                   VerticalTextAlignment="Center"
+                                                   FontSize="Subtitle"
+                                                   HorizontalOptions="EndAndExpand" />
                                         </StackLayout>
                                     </VerticalStackLayout>
                                 </Grid>
-
                             </DataTemplate>
                         </CarouselView.ItemTemplate>
-
                     </CarouselView>
-                    <IndicatorView x:Name="indicatorView" IndicatorColor="LightGray" SelectedIndicatorColor="Gray" 
-                                       IndicatorSize="10" HorizontalOptions="Center" VerticalOptions="End" />
-                    <ScrollView Grid.Row="1" VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never">
-                        <StackLayout  Spacing="5">
-                            <!--Acceuil-->
-                            <Frame Padding="5" CornerRadius="10" BackgroundColor="Transparent">
+                    <IndicatorView x:Name="indicatorView"
+                                   IndicatorColor="LightGray"
+                                   SelectedIndicatorColor="Gray"
+                                   IndicatorSize="10"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="End" />
+                    <ScrollView Grid.Row="1"
+                                VerticalScrollBarVisibility="Never"
+                                HorizontalScrollBarVisibility="Never">
+                        <StackLayout Spacing="5">
+                            <!-- Acceuil -->
+                            <Frame Padding="5"
+                                   CornerRadius="10"
+                                   BackgroundColor="Transparent">
                                 <Frame.Behaviors>
-                                    <toolkit:TouchBehavior DefaultAnimationDuration="70" PressedBackgroundColor="LightGray" Command="{Binding GotoAllPostPageCommand}"/>
+                                    <toolkit:TouchBehavior DefaultAnimationDuration="70"
+                                                           PressedBackgroundColor="LightGray"
+                                                           Command="{Binding GotoAllPostPageCommand}" />
                                 </Frame.Behaviors>
-
-                                <Grid RowDefinitions="auto,auto" ColumnDefinitions="auto,*,auto">
-                                    <Frame Grid.RowSpan="2" Padding="10" BackgroundColor="#188fe9" CornerRadius="50" >
-                                        <Image Source="accueil.png" HeightRequest="40"/>
+                                <Grid RowDefinitions="auto,auto"
+                                      ColumnDefinitions="auto,*,auto">
+                                    <Frame Grid.RowSpan="2"
+                                           Padding="10"
+                                           BackgroundColor="#188fe9"
+                                           CornerRadius="50">
+                                        <Image Source="accueil.png"
+                                               HeightRequest="40" />
                                     </Frame>
-                                    <Label Grid.Column="1" FontSize="18" Text="Locations" FontAttributes="Bold"
-                                       HorizontalTextAlignment="Center"/>
-                                    <StackLayout Grid.Column="1" Grid.Row="1" Orientation="Horizontal" Margin="0">
-                                        <VerticalStackLayout Grid.Column="1" HorizontalOptions="CenterAndExpand">
-                                            <Label Text="Maison" FontSize="Header"/>
-                                            <Label Text="Voiture" FontSize="Header" />
+                                    <Label Grid.Column="1"
+                                           FontSize="18"
+                                           Text="Locations"
+                                           FontAttributes="Bold"
+                                           HorizontalTextAlignment="Center" />
+                                    <StackLayout Grid.Column="1"
+                                                 Grid.Row="1"
+                                                 Orientation="Horizontal"
+                                                 Margin="0">
+                                        <VerticalStackLayout Grid.Column="1"
+                                                             HorizontalOptions="CenterAndExpand">
+                                            <Label Text="Maison"
+                                                   FontSize="Header" />
+                                            <Label Text="Voiture"
+                                                   FontSize="Header" />
                                         </VerticalStackLayout>
-                                        <VerticalStackLayout Grid.Column="1" HorizontalOptions="CenterAndExpand">
-                                            <Label Text="Appartement" FontSize="Header"/>
-                                            <Label Text="Salle de reunion" FontSize="Header" />
-                                        </VerticalStackLayout>
-                                    </StackLayout>
-                                    <Image Grid.Column="2" Grid.RowSpan="2" Source="next.png" HeightRequest="30" BackgroundColor="Transparent" />
-                                </Grid>
-                            </Frame>
-
-
-                            <!--Ventes-->
-                            <Frame Padding="5" CornerRadius="10">
-                                <Grid RowDefinitions="auto,auto" ColumnDefinitions="auto,*,auto">
-                                    <Image Margin="10,0,0,0" Grid.RowSpan="2" Source="meadow.png" HeightRequest="50" WidthRequest="50"/>
-                                    <Label Grid.Column="1" FontSize="18" Text="Ventes" FontAttributes="Bold"
-                                       HorizontalTextAlignment="Center"/>
-                                    <StackLayout Grid.Column="1" Grid.Row="1" Orientation="Horizontal" Margin="0">
-                                        <VerticalStackLayout Grid.Column="1" HorizontalOptions="CenterAndExpand" Margin="0" Padding="0,0,5,0">
-                                            <Label Text="Terrain" FontSize="Header"/>
-                                            <Label Text="Voiture" FontSize="Header" />
-                                        </VerticalStackLayout>
-                                        <VerticalStackLayout Grid.Column="1" HorizontalOptions="CenterAndExpand" Margin="0" Padding="0,0,5,0">
-                                            <Label Text="Meuble" FontSize="Header"/>
-                                            <Label Text="Maison" FontSize="Header" />
+                                        <VerticalStackLayout Grid.Column="1"
+                                                             HorizontalOptions="CenterAndExpand">
+                                            <Label Text="Appartement"
+                                                   FontSize="Header" />
+                                            <Label Text="Salle de reunion"
+                                                   FontSize="Header" />
                                         </VerticalStackLayout>
                                     </StackLayout>
-                                    <Image Grid.Column="2" Grid.RowSpan="2" Source="next.png" HeightRequest="30" BackgroundColor="Transparent" />
+                                    <Image Grid.Column="2"
+                                           Grid.RowSpan="2"
+                                           Source="next.png"
+                                           HeightRequest="30"
+                                           BackgroundColor="Transparent" />
                                 </Grid>
                             </Frame>
-
-                            <!--Reservations-->
-                            <Frame Padding="5" CornerRadius="10">
-                                <Grid RowDefinitions="auto,auto" ColumnDefinitions="auto,*,auto">
-                                    <Image Margin="10,0,0,0" Grid.RowSpan="2" Source="onlinebooking.png" HeightRequest="50" WidthRequest="50"/>
-                                    <Label Grid.Column="1" FontSize="18" Text="Reservations" FontAttributes="Bold"
-                                       HorizontalTextAlignment="Center"/>
-                                    <StackLayout Grid.Column="1" Grid.Row="1" Orientation="Horizontal" Margin="0">
-                                        <VerticalStackLayout Grid.Column="1" HorizontalOptions="CenterAndExpand">
-                                            <Label Text="Hotel" FontSize="Header"/>
-                                            <Label Text="Voiture" FontSize="Header" />
+                            <!-- Ventes -->
+                            <Frame Padding="5"
+                                   CornerRadius="10">
+                                <Grid RowDefinitions="auto,auto"
+                                      ColumnDefinitions="auto,*,auto">
+                                    <Image Margin="10,0,0,0"
+                                           Grid.RowSpan="2"
+                                           Source="meadow.png"
+                                           HeightRequest="50"
+                                           WidthRequest="50" />
+                                    <Label Grid.Column="1"
+                                           FontSize="18"
+                                           Text="Ventes"
+                                           FontAttributes="Bold"
+                                           HorizontalTextAlignment="Center" />
+                                    <StackLayout Grid.Column="1"
+                                                 Grid.Row="1"
+                                                 Orientation="Horizontal"
+                                                 Margin="0">
+                                        <VerticalStackLayout Grid.Column="1"
+                                                             HorizontalOptions="CenterAndExpand"
+                                                             Margin="0"
+                                                             Padding="0,0,5,0">
+                                            <Label Text="Terrain"
+                                                   FontSize="Header" />
+                                            <Label Text="Voiture"
+                                                   FontSize="Header" />
                                         </VerticalStackLayout>
-                                        <VerticalStackLayout Grid.Column="1" HorizontalOptions="CenterAndExpand">
-                                            <Label Text="Appartement" FontSize="Header"/>
-                                            <Label Text="Place de fete" FontSize="Header" />
+                                        <VerticalStackLayout Grid.Column="1"
+                                                             HorizontalOptions="CenterAndExpand"
+                                                             Margin="0"
+                                                             Padding="0,0,5,0">
+                                            <Label Text="Meuble"
+                                                   FontSize="Header" />
+                                            <Label Text="Maison"
+                                                   FontSize="Header" />
                                         </VerticalStackLayout>
                                     </StackLayout>
-                                    <Image Grid.Column="2" Grid.RowSpan="2" Source="next.png" HeightRequest="30" BackgroundColor="Transparent" />
+                                    <Image Grid.Column="2"
+                                           Grid.RowSpan="2"
+                                           Source="next.png"
+                                           HeightRequest="30"
+                                           BackgroundColor="Transparent" />
                                 </Grid>
                             </Frame>
-
-
-                            <!--Multi-Services-->
-                            <Frame Padding="5" CornerRadius="10">
-                                <Grid RowDefinitions="auto,auto" ColumnDefinitions="auto,*,auto">
-                                    <Image Margin="10,0,0,0" Grid.RowSpan="2" Source="multiskilled.png" HeightRequest="40"/>
-                                    <Label Grid.Column="1" FontSize="18" Text="Multi-Services" FontAttributes="Bold"
-                                       HorizontalTextAlignment="Center"/>
-                                    <StackLayout Grid.Column="1" Grid.Row="1" Orientation="Horizontal" Margin="0">
-                                        <VerticalStackLayout Grid.Column="1" HorizontalOptions="CenterAndExpand">
-                                            <Label Text="Elsectricien" FontSize="Header"/>
-                                            <Label Text="Mecanicien" FontSize="Header" />
+                            <!-- Reservations -->
+                            <Frame Padding="5"
+                                   CornerRadius="10">
+                                <Grid RowDefinitions="auto,auto"
+                                      ColumnDefinitions="auto,*,auto">
+                                    <Image Margin="10,0,0,0"
+                                           Grid.RowSpan="2"
+                                           Source="onlinebooking.png"
+                                           HeightRequest="50"
+                                           WidthRequest="50" />
+                                    <Label Grid.Column="1"
+                                           FontSize="18"
+                                           Text="Reservations"
+                                           FontAttributes="Bold"
+                                           HorizontalTextAlignment="Center" />
+                                    <StackLayout Grid.Column="1"
+                                                 Grid.Row="1"
+                                                 Orientation="Horizontal"
+                                                 Margin="0">
+                                        <VerticalStackLayout Grid.Column="1"
+                                                             HorizontalOptions="CenterAndExpand">
+                                            <Label Text="Hotel"
+                                                   FontSize="Header" />
+                                            <Label Text="Voiture"
+                                                   FontSize="Header" />
                                         </VerticalStackLayout>
-                                        <VerticalStackLayout Grid.Column="1" HorizontalOptions="CenterAndExpand">
-                                            <Label Text="Macon" FontSize="Header"/>
-                                            <Label Text="Technicien de surface" FontSize="Header" />
+                                        <VerticalStackLayout Grid.Column="1"
+                                                             HorizontalOptions="CenterAndExpand">
+                                            <Label Text="Appartement"
+                                                   FontSize="Header" />
+                                            <Label Text="Place de fete"
+                                                   FontSize="Header" />
                                         </VerticalStackLayout>
                                     </StackLayout>
-                                    <Image Grid.Column="2" Grid.RowSpan="2" Source="next.png" HeightRequest="30" BackgroundColor="Transparent" />
+                                    <Image Grid.Column="2"
+                                           Grid.RowSpan="2"
+                                           Source="next.png"
+                                           HeightRequest="30"
+                                           BackgroundColor="Transparent" />
                                 </Grid>
                             </Frame>
-
+                            <!-- Multi-Services -->
+                            <Frame Padding="5"
+                                   CornerRadius="10">
+                                <Grid RowDefinitions="auto,auto"
+                                      ColumnDefinitions="auto,*,auto">
+                                    <Image Margin="10,0,0,0"
+                                           Grid.RowSpan="2"
+                                           Source="multiskilled.png"
+                                           HeightRequest="40" />
+                                    <Label Grid.Column="1"
+                                           FontSize="18"
+                                           Text="Multi-Services"
+                                           FontAttributes="Bold"
+                                           HorizontalTextAlignment="Center" />
+                                    <StackLayout Grid.Column="1"
+                                                 Grid.Row="1"
+                                                 Orientation="Horizontal"
+                                                 Margin="0">
+                                        <VerticalStackLayout Grid.Column="1"
+                                                             HorizontalOptions="CenterAndExpand">
+                                            <Label Text="Elsectricien"
+                                                   FontSize="Header" />
+                                            <Label Text="Mecanicien"
+                                                   FontSize="Header" />
+                                        </VerticalStackLayout>
+                                        <VerticalStackLayout Grid.Column="1"
+                                                             HorizontalOptions="CenterAndExpand">
+                                            <Label Text="Macon"
+                                                   FontSize="Header" />
+                                            <Label Text="Technicien de surface"
+                                                   FontSize="Header" />
+                                        </VerticalStackLayout>
+                                    </StackLayout>
+                                    <Image Grid.Column="2"
+                                           Grid.RowSpan="2"
+                                           Source="next.png"
+                                           HeightRequest="30"
+                                           BackgroundColor="Transparent" />
+                                </Grid>
+                            </Frame>
                         </StackLayout>
                     </ScrollView>
                 </Grid>
-                <!--Vue pour le chargement de donnee-->
-                <Grid RowDefinitions="*,auto,auto,auto" toolkit:StateView.StateKey="Loading">
-                    <Grid RowDefinitions="*,Auto" >
-                        <Frame BorderColor="Transparent" Padding="0" Margin="10">
+                <!-- Vue pour le chargement de donnee -->
+                <Grid RowDefinitions="*,auto,auto,auto"
+                      toolkit:StateView.StateKey="Loading">
+                    <Grid RowDefinitions="*,Auto">
+                        <Frame BorderColor="Transparent"
+                               Padding="0"
+                               Margin="10">
                             <NControls:BoxSkiletonView Color="LightGray" />
                         </Frame>
-
-                        <Grid ColumnDefinitions="*" Grid.Row="1" RowDefinitions="Auto, Auto, 1" ColumnSpacing="10"
-                                RowSpacing="5" Padding="0,10">
-                            <NControls:BoxSkiletonView Margin="10" Grid.Row="0" Color="LightGray" HorizontalOptions="Start"
-                                                         HeightRequest="16" WidthRequest="150"/>
-
-                            <NControls:BoxSkiletonView  Color="LightGray" Margin="10" Grid.Row="1" HorizontalOptions="Start"
-                                                         HeightRequest="16" WidthRequest="250"/>
-                            <BoxView Color="LightGray" HeightRequest="1" HorizontalOptions="FillAndExpand" Grid.Column="0"
-                                       Grid.Row="2" Grid.ColumnSpan="2"/>
+                        <Grid ColumnDefinitions="*"
+                              Grid.Row="1"
+                              RowDefinitions="Auto, Auto, 1"
+                              ColumnSpacing="10"
+                              RowSpacing="5"
+                              Padding="0,10">
+                            <NControls:BoxSkiletonView Margin="10"
+                                                       Grid.Row="0"
+                                                       Color="LightGray"
+                                                       HorizontalOptions="Start"
+                                                       HeightRequest="16"
+                                                       WidthRequest="150" />
+                            <NControls:BoxSkiletonView Color="LightGray"
+                                                       Margin="10"
+                                                       Grid.Row="1"
+                                                       HorizontalOptions="Start"
+                                                       HeightRequest="16"
+                                                       WidthRequest="250" />
+                            <BoxView Color="LightGray"
+                                     HeightRequest="1"
+                                     HorizontalOptions="FillAndExpand"
+                                     Grid.Column="0"
+                                     Grid.Row="2"
+                                     Grid.ColumnSpan="2" />
                         </Grid>
                     </Grid>
-                    <Grid ColumnDefinitions="Auto, *" Grid.Row="1" RowDefinitions="Auto, Auto, 1" ColumnSpacing="10"
-                            RowSpacing="5" Padding="0,10">
-
-                        <NControls:BoxSkiletonView Grid.Column="0" Color="LightGray" Grid.Row="0"
-                                                     Grid.RowSpan="3" Margin="20,0,0,10" HeightRequest="80"
-                                                     WidthRequest="80" HorizontalOptions="Center"
-                                                     VerticalOptions="Center">
+                    <Grid ColumnDefinitions="Auto, *"
+                          Grid.Row="1"
+                          RowDefinitions="Auto, Auto, 1"
+                          ColumnSpacing="10"
+                          RowSpacing="5"
+                          Padding="0,10">
+                        <NControls:BoxSkiletonView Grid.Column="0"
+                                                   Color="LightGray"
+                                                   Grid.Row="0"
+                                                   Grid.RowSpan="3"
+                                                   Margin="20,0,0,10"
+                                                   HeightRequest="80"
+                                                   WidthRequest="80"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center">
                             <NControls:BoxSkiletonView.Clip>
-                                <EllipseGeometry Center="40,40" RadiusX="40" RadiusY="40"/>
+                                <EllipseGeometry Center="40,40"
+                                                 RadiusX="40"
+                                                 RadiusY="40" />
                             </NControls:BoxSkiletonView.Clip>
-
                         </NControls:BoxSkiletonView>
-
-                        <NControls:BoxSkiletonView Grid.Column="1" Grid.Row="0" Color="LightGray" HorizontalOptions="Start"
-                                                     HeightRequest="16" WidthRequest="150"/>
-
-                        <NControls:BoxSkiletonView  Color="LightGray" Grid.Column="1" Grid.Row="1" HorizontalOptions="Start"
-                                                     HeightRequest="16" WidthRequest="250"/>
-
-
-
-                        <BoxView Color="LightGray" HeightRequest="1" HorizontalOptions="FillAndExpand"
-                                   Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"/>
+                        <NControls:BoxSkiletonView Grid.Column="1"
+                                                   Grid.Row="0"
+                                                   Color="LightGray"
+                                                   HorizontalOptions="Start"
+                                                   HeightRequest="16"
+                                                   WidthRequest="150" />
+                        <NControls:BoxSkiletonView Color="LightGray"
+                                                   Grid.Column="1"
+                                                   Grid.Row="1"
+                                                   HorizontalOptions="Start"
+                                                   HeightRequest="16"
+                                                   WidthRequest="250" />
+                        <BoxView Color="LightGray"
+                                 HeightRequest="1"
+                                 HorizontalOptions="FillAndExpand"
+                                 Grid.Column="0"
+                                 Grid.Row="2"
+                                 Grid.ColumnSpan="2" />
                     </Grid>
-                    <Grid ColumnDefinitions="Auto, *" Grid.Row="2" RowDefinitions="Auto, Auto, 1"
-                            ColumnSpacing="10" RowSpacing="5" Padding="0,10">
-
-                        <NControls:BoxSkiletonView Grid.Column="0" Color="LightGray" Grid.Row="0"
-                                                     Grid.RowSpan="3" Margin="20,0,0,10" HeightRequest="80"
-                                                     WidthRequest="80" HorizontalOptions="Center"
-                                                     VerticalOptions="Center">
+                    <Grid ColumnDefinitions="Auto, *"
+                          Grid.Row="2"
+                          RowDefinitions="Auto, Auto, 1"
+                          ColumnSpacing="10"
+                          RowSpacing="5"
+                          Padding="0,10">
+                        <NControls:BoxSkiletonView Grid.Column="0"
+                                                   Color="LightGray"
+                                                   Grid.Row="0"
+                                                   Grid.RowSpan="3"
+                                                   Margin="20,0,0,10"
+                                                   HeightRequest="80"
+                                                   WidthRequest="80"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center">
                             <NControls:BoxSkiletonView.Clip>
-                                <EllipseGeometry Center="40,40" RadiusX="40" RadiusY="40"/>
+                                <EllipseGeometry Center="40,40"
+                                                 RadiusX="40"
+                                                 RadiusY="40" />
                             </NControls:BoxSkiletonView.Clip>
-
                         </NControls:BoxSkiletonView>
-
-                        <NControls:BoxSkiletonView Grid.Column="1" Grid.Row="0" Color="LightGray"
-                                                     HorizontalOptions="Start"  HeightRequest="16"
-                                                     WidthRequest="150"/>
-
-                        <NControls:BoxSkiletonView  Color="LightGray" Grid.Column="1" Grid.Row="1"
-                                                     HorizontalOptions="Start" HeightRequest="16"
-                                                     WidthRequest="250"/>
-                        <BoxView Color="LightGray" HeightRequest="1" HorizontalOptions="FillAndExpand"
-                                   Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"/>
+                        <NControls:BoxSkiletonView Grid.Column="1"
+                                                   Grid.Row="0"
+                                                   Color="LightGray"
+                                                   HorizontalOptions="Start"
+                                                   HeightRequest="16"
+                                                   WidthRequest="150" />
+                        <NControls:BoxSkiletonView Color="LightGray"
+                                                   Grid.Column="1"
+                                                   Grid.Row="1"
+                                                   HorizontalOptions="Start"
+                                                   HeightRequest="16"
+                                                   WidthRequest="250" />
+                        <BoxView Color="LightGray"
+                                 HeightRequest="1"
+                                 HorizontalOptions="FillAndExpand"
+                                 Grid.Column="0"
+                                 Grid.Row="2"
+                                 Grid.ColumnSpan="2" />
                     </Grid>
-                    <Grid ColumnDefinitions="Auto, *" Grid.Row="3" RowDefinitions="Auto, Auto, 1" ColumnSpacing="10"
-                            RowSpacing="5" Padding="0,10">
-
-                        <NControls:BoxSkiletonView Grid.Column="0" Color="LightGray" Grid.Row="0"
-                                                     Grid.RowSpan="3" Margin="20,0,0,10" HeightRequest="80"
-                                                     WidthRequest="80" HorizontalOptions="Center"
-                                                     VerticalOptions="Center">
+                    <Grid ColumnDefinitions="Auto, *"
+                          Grid.Row="3"
+                          RowDefinitions="Auto, Auto, 1"
+                          ColumnSpacing="10"
+                          RowSpacing="5"
+                          Padding="0,10">
+                        <NControls:BoxSkiletonView Grid.Column="0"
+                                                   Color="LightGray"
+                                                   Grid.Row="0"
+                                                   Grid.RowSpan="3"
+                                                   Margin="20,0,0,10"
+                                                   HeightRequest="80"
+                                                   WidthRequest="80"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center">
                             <NControls:BoxSkiletonView.Clip>
-                                <EllipseGeometry Center="40,40" RadiusX="40" RadiusY="40"/>
+                                <EllipseGeometry Center="40,40"
+                                                 RadiusX="40"
+                                                 RadiusY="40" />
                             </NControls:BoxSkiletonView.Clip>
-
                         </NControls:BoxSkiletonView>
-
-                        <NControls:BoxSkiletonView Grid.Column="1" Grid.Row="0" Color="LightGray"
-                                                     HorizontalOptions="Start" HeightRequest="16" WidthRequest="150"/>
-
-                        <NControls:BoxSkiletonView  Color="LightGray" Grid.Column="1" Grid.Row="1" HorizontalOptions="Start"
-                                                     HeightRequest="16" WidthRequest="250"/>
-
-
-
-                        <BoxView Color="LightGray" HeightRequest="1" HorizontalOptions="FillAndExpand"
-                                   Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"/>
+                        <NControls:BoxSkiletonView Grid.Column="1"
+                                                   Grid.Row="0"
+                                                   Color="LightGray"
+                                                   HorizontalOptions="Start"
+                                                   HeightRequest="16"
+                                                   WidthRequest="150" />
+                        <NControls:BoxSkiletonView Color="LightGray"
+                                                   Grid.Column="1"
+                                                   Grid.Row="1"
+                                                   HorizontalOptions="Start"
+                                                   HeightRequest="16"
+                                                   WidthRequest="250" />
+                        <BoxView Color="LightGray"
+                                 HeightRequest="1"
+                                 HorizontalOptions="FillAndExpand"
+                                 Grid.Column="0"
+                                 Grid.Row="2"
+                                 Grid.ColumnSpan="2" />
                     </Grid>
                 </Grid>
-                <!--Vue pour les donner vide-->
-                <!--<Label toolkit:StateView.StateKey="Empty" Text="Vide" FontSize="Title" VerticalOptions="CenterAndExpand"
-                       HorizontalOptions="CenterAndExpand"/>-->
-                <Grid toolkit:StateView.StateKey="Empty" RowDefinitions="*">
-                    <Button Text="Reeseyer" Padding="5" FontSize="Title" VerticalOptions="CenterAndExpand"
-                            Command="{Binding LoadDataResetCommand}" HorizontalOptions="CenterAndExpand" BackgroundColor="ForestGreen"/>
-                </Grid>
+                <!-- Vue pour les donner vide -->
+                <!-- <Label toolkit:StateView.StateKey="Empty" Text="Vide" FontSize="Title" VerticalOptions="CenterAndExpand"
+                       HorizontalOptions="CenterAndExpand"/> -->
+                <StackLayout toolkit:StateView.StateKey="Empty"
+                             Spacing="20"
+                             VerticalOptions="CenterAndExpand">
+                    <Image Source="empty_icon.png"
+                           HeightRequest="100"
+                           WidthRequest="100" />
+                    <Label Text="Une erreur s'est produite !"
+                           FontSize="Title"
+                           HorizontalOptions="Center"
+                           TextColor="#666666"
+                           FontAttributes="Bold" />
+                    <Label Text="Il semble qu'il n'y ait aucune donnée à afficher pour le moment..."
+                           FontSize="Subtitle"
+                           HorizontalOptions="Center"
+                           TextColor="#999999"
+                           HorizontalTextAlignment="Center" />
+                    <Button Text="Réessayer"
+                            BackgroundColor="#4CAF50"
+                            TextColor="White"
+                            CornerRadius="20"
+                            Padding="20,10"
+                            HorizontalOptions="Center"
+                            Command="{Binding LoadDataResetCommand}" />
+                </StackLayout>
             </toolkit:StateContainer.StateViews>
         </Grid>
     </ScrollView>

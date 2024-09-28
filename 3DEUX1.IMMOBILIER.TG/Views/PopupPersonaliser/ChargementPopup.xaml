@@ -2,19 +2,19 @@
 <toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-               x:Class="_3DEUX1.IMMOBILIER.TG.Views.PopupPersonalise"
-               xmlns:vm="clr-namespace:_3DEUX1.IMMOBILIER.TG.ViewModels"
-               x:DataType="vm:PopupPersonaliseViewModel"
+               x:Class="_3DEUX1.IMMOBILIER.TG.Views.PopupPersonaliser.ChargementPopup"
+               xmlns:model="clr-namespace:_3DEUX1.IMMOBILIER.TG.Views.PopupPersonaliser"
+               x:DataType="model:ChargementPopup"
                CanBeDismissedByTappingOutsideOfPopup="False"
                Color="Transparent"
                >
     <Grid >
         <Frame BackgroundColor="White" WidthRequest="{Binding ScreenWidth}" HeightRequest="{Binding ScreenHeight}" BorderColor="Transparent" CornerRadius="0">
-            <ActivityIndicator IsRunning="True" IsVisible="True" WidthRequest="60" HeightRequest="60" Color="Blue"
+            <ActivityIndicator IsRunning="True" IsVisible="True" WidthRequest="50" HeightRequest="50" Color="Blue"
                                Background="Transparent" BackgroundColor="Transparent" 
                                HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
         </Frame>
     </Grid>
-    
+
 
 </toolkit:Popup>
