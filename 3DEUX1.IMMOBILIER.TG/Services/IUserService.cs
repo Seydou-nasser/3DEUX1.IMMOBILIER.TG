@@ -10,6 +10,5 @@ namespace _3DEUX1.IMMOBILIER.TG.Services
         public Task<bool> Registre(RegisterModelSend model);
         public bool UserVerifier();
         public void Logout();
-        public Task<bool> UploadPost(Post post);
     }
 }

@@ -22,8 +22,8 @@ namespace _3DEUX1.IMMOBILIER.TG.Services
         {
             try
             {
-                LoginModel model = new LoginModel() { Email=email, Password = password };
-                var response = await _httpClient.PostAsJsonAsync("Login",model);
+                LoginModel model = new LoginModel() { Email = email, Password = password };
+                var response = await _httpClient.PostAsJsonAsync("Login", model);
                 if (response.IsSuccessStatusCode)
                 {
                     return await response.Content.ReadFromJsonAsync<User>();
@@ -101,28 +101,6 @@ namespace _3DEUX1.IMMOBILIER.TG.Services
                 }
             }
             return false;
-        }
-
-        // Méthode pour télécharger un nouveau post
-        public async Task<bool> UploadPost(Post post)
-        {
-            if (App.AppUser == null)
-            {
-                return false;
-            }
-
-            try
-            {
-                post.User = App.AppUser.Email;
-                _httpClient.BaseAddress = new Uri(ApiData.GetApiBaseAddress());
-                var response = await _httpClient.PostAsJsonAsync("Post", post);
-                return response.IsSuccessStatusCode;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Erreur lors du téléchargement du post : {ex.Message}");
-                return false;
-            }
         }
 
     }

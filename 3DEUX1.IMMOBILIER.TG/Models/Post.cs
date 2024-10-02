@@ -1,7 +1,9 @@
 ﻿
+using CommunityToolkit.Mvvm.ComponentModel;
+
 namespace _3DEUX1.IMMOBILIER.TG.Models
 {
-    public class Post
+    public partial class Post : ObservableObject
     {
         public int? Id { get; set; }
         public string? Name { get; set; }
@@ -9,8 +11,10 @@ namespace _3DEUX1.IMMOBILIER.TG.Models
         public int? Prix { get; set; }
         public int? Avance { get; set; }
         public List<string>? Caracteristique { get; set; }
-        public string? Type { get; set; }
-        public string? Categories { get; set; }
+        [ObservableProperty]
+        public string? type;
+        [ObservableProperty]
+        public string? categories;
         public bool? IsDelete { get; set; } = false;
         public bool? Isavailable { get; set; } = false;
         public DateTime? DateTime { get; set; }

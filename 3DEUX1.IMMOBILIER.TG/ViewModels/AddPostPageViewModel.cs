@@ -20,16 +20,22 @@ namespace _3DEUX1.IMMOBILIER.TG.ViewModels
         [ObservableProperty] private string _prix = string.Empty;
         [ObservableProperty] private string _avance = string.Empty;
         [ObservableProperty] private string _localisation = string.Empty;
+        [ObservableProperty] private string _marque = string.Empty;
+        [ObservableProperty] private string _modele = string.Empty;
+        [ObservableProperty] private string _annee = string.Empty;
+        [ObservableProperty] private string _capacite = string.Empty;
+        [ObservableProperty] private string _kilometrage = string.Empty;
 
         // Collections observables pour les images et les localisations
         public MvvmHelpers.ObservableRangeCollection<string> Images { get; set; } = new();
         public MvvmHelpers.ObservableRangeCollection<string> LocalisationsList { get; set; } = new();
-
+        private readonly IPostService _postService;
         // Constructeur
-        public AddPostPageViewModel()
+        public AddPostPageViewModel(IPostService postService)
         {
             LocalisationsList.AddRange(ApplicationData.GetLomeQuart());
             init();
+            _postService = postService;
         }
 
         // Commande pour envoyer le post
@@ -37,27 +43,7 @@ namespace _3DEUX1.IMMOBILIER.TG.ViewModels
         public async Task Envoyer()
         {
             await AffectationDeValeurAsync();
-
-            if (!ValidatePost())
-            {
-                await CreatSnackBar.SnackBarShow("Veuillez renseigner toutes les informations !");
-                return;
-            }
-
-            if (Post!.Type == "Location" && (Post.Avance == null || Post.Avance == 0))
-            {
-                await CreatSnackBar.SnackBarShow("Veuillez mettre l'avance pour une location !");
-                return;
-            }
-
-            if (Post.Type == "Vente" || (Post.Type == "Location" && Post.Avance != null && Post.Avance != 0))
-            {
-                await UploadPost();
-            }
-            else if (string.IsNullOrEmpty(Post.Type))
-            {
-                await CreatSnackBar.SnackBarShow("Veuillez sélectionner le type et la catégorie !");
-            }
+            if (await ValidationBeforUpload()) await UploadPost();
         }
 
         // Commande pour prévisualiser le post
@@ -72,17 +58,7 @@ namespace _3DEUX1.IMMOBILIER.TG.ViewModels
                 return;
             }
 
-            if (!ValidatePost())
-            {
-                await CreatSnackBar.SnackBarShow("Veuillez renseigner toutes les informations !");
-                return;
-            }
-
-            if (Post.Type == "Location" && (Post.Avance == null || Post.Avance == 0))
-            {
-                await CreatSnackBar.SnackBarShow("Veuillez mettre l'avance pour une location !");
-                return;
-            }
+            await ValidationBeforUpload();
 
             await NavigateToPostDetailPage();
         }
@@ -104,9 +80,25 @@ namespace _3DEUX1.IMMOBILIER.TG.ViewModels
             Post.Caracteristique = Caracteristique;
             Post.Description = Description;
             Post.Localisation = Localisation;
-            Caracteristique?.Add($"{Superficie} superficie");
-            Caracteristique?.Add($"{Chambre} chambre");
-            Post.UserNum = "+228" + Post.UserNum;
+
+            switch (Post.Categories)
+            {
+                case "Maison":
+                case "Appartement":
+                    Caracteristique?.Add($"{Superficie} superficie");
+                    Caracteristique?.Add($"{Chambre} chambre");
+                    break;
+                case "Voiture":
+                    Caracteristique?.Add($"Marque: {Marque}");
+                    Caracteristique?.Add($"Modèle: {Modele}");
+                    Caracteristique?.Add($"Année: {Annee}");
+                    Caracteristique?.Add($"Kilométrage: {Kilometrage}");
+                    break;
+                case "Salle de Reunion":
+                    Caracteristique?.Add($"Capacité: {Capacite} personnes");
+                    Caracteristique?.Add($"{Superficie} m²");
+                    break;
+            }
 
             // Gestion de l'avance pour une location
             if (!int.TryParse(Avance, out int avanceValue) && Post.Type == "Location")
@@ -184,47 +176,64 @@ namespace _3DEUX1.IMMOBILIER.TG.ViewModels
         }
 
         // Méthode pour sélectionner une catégorie
-        public void SlectedCat(string val)
-        {
-            Post!.Categories = val;
-        }
+        public void SlectedCat(string val) => Post!.Categories = val;
 
         // Méthode pour sélectionner un type
-        public void SlectedType(string val)
-        {
-            Post!.Type = val;
-        }
+        public void SlectedType(string val) => Post!.Type = val;
 
         // Méthode pour valider le post
         private bool ValidatePost()
         {
-            return Post!.Categories != null &&
-                   Post.Type != null &&
-                   Post.Images!.Any() &&
-                   !string.IsNullOrEmpty(Chambre) &&
-                   !string.IsNullOrEmpty(Superficie) &&
-                   !string.IsNullOrEmpty(Localisation) &&
-                   !string.IsNullOrEmpty(Description);
+            bool isValid = Post!.Categories != null &&
+                           Post.Type != null &&
+                           Post.Images!.Any() &&
+                           !string.IsNullOrEmpty(Localisation) &&
+                           !string.IsNullOrEmpty(Description);
+
+            switch (Post.Categories)
+            {
+                case "Maison":
+                case "Appartement":
+                    isValid &= !string.IsNullOrEmpty(Chambre) && !string.IsNullOrEmpty(Superficie);
+                    break;
+                case "Voiture":
+                    isValid &= !string.IsNullOrEmpty(Marque) && !string.IsNullOrEmpty(Modele) && !string.IsNullOrEmpty(Annee) && !string.IsNullOrEmpty(Kilometrage);
+                    break;
+                case "Salle de Reunion":
+                    isValid &= !string.IsNullOrEmpty(Capacite) && !string.IsNullOrEmpty(Superficie);
+                    break;
+            }
+
+            return isValid;
+        }
+        private async Task<bool> ValidationBeforUpload()
+        {
+            if (!ValidatePost())
+            {
+                await CreatSnackBar.SnackBarShow("Veuillez renseigner toutes les informations !");
+                return false;
+            }
+            if (Post!.Type == "Location" && (Post.Avance == null || Post.Avance == 0) && Post.Categories != "Voiture")
+            {
+                await CreatSnackBar.SnackBarShow("Veuillez mettre l'avance pour une location !");
+                return false;
+            }
+            if (string.IsNullOrEmpty(Post.Type) || string.IsNullOrEmpty(Post.Categories))
+            {
+                await CreatSnackBar.SnackBarShow("Veuillez sélectionner le type et la catégorie !");
+                return false;
+            }
+            return true;
         }
 
         // Méthode pour uploader le post
         private async Task UploadPost()
         {
-            UserService userService = new UserService(new HttpClient());
             var popup = new ChargementPopup();
             App.Current!.MainPage!.ShowPopup(popup);
-            bool success = await userService.UploadPost(Post!);
+            bool success = await _postService.UploadPost(Post!);
             popup.Close();
-
-            if (success)
-            {
-                await CreatSnackBar.SnackBarShow("Post uploadé avec succès !");
-                init();
-            }
-            else
-            {
-                await CreatSnackBar.SnackBarShow("Erreur lors de l'upload du post.");
-            }
+            if (success) init();
         }
     }
 }

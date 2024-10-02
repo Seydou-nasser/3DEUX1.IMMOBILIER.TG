@@ -9,22 +9,17 @@ namespace _3DEUX1.IMMOBILIER.TG.Helpers
             if (value is string inputString)
             {
                 if (inputString.Contains("superficie", StringComparison.OrdinalIgnoreCase))
-                {
                     return "surface.png";
-                }
                 else if (inputString.Contains("chambre", StringComparison.OrdinalIgnoreCase))
-                {
                     return "chambre.png";
-                }
-                else if (inputString.Contains("salle de bain", StringComparison.OrdinalIgnoreCase))
-                {
-                    return "Texte personnalisé pour salle de bain";
-                }
-                // Ajoute d'autres conditions selon tes besoins
-                else
-                {
-                    return "Texte par défaut";
-                }
+                else if (inputString.Contains("Marque", StringComparison.OrdinalIgnoreCase))
+                    return "marque.png";
+                else if (inputString.Contains("Modèle", StringComparison.OrdinalIgnoreCase))
+                    return "modele.png";
+                else if (inputString.Contains("Année", StringComparison.OrdinalIgnoreCase))
+                    return "annee.png";
+                else if (inputString.Contains("Capacité", StringComparison.OrdinalIgnoreCase))
+                    return "capacite.png";
             }
 
             return string.Empty;

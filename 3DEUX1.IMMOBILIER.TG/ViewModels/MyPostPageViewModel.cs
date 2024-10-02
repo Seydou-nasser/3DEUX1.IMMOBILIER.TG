@@ -14,7 +14,7 @@ namespace _3DEUX1.IMMOBILIER.TG.ViewModels
         [ObservableProperty]
         private bool _isBusy;
 
-        public ObservableCollection<Post> Posts { get; set; } = new();
+        public MvvmHelpers.ObservableRangeCollection<Post> Posts { get; set; } = new();
 
         private readonly IPostService _postService;
         private readonly IDialogService _dialogService;
@@ -27,6 +27,7 @@ namespace _3DEUX1.IMMOBILIER.TG.ViewModels
             CurrentState = "Loading";
             Posts.Clear();
             LoadData();
+            Posts.CollectionChanged += (sender, e) => CurrentState = Posts.Any() ? "Success" : "Empty";
         }
 
         private async Task LoadData()
@@ -34,16 +35,10 @@ namespace _3DEUX1.IMMOBILIER.TG.ViewModels
             var posts = await _postService.GetPostsByEmail(App.AppUser!.Email, _page);
             if (posts.Count > 0)
             {
-                foreach (var post in posts)
-                {
-                    Posts.Add(post);
-                }
+                Posts.AddRange(posts);
                 CurrentState = "Success";
             }
-            else
-            {
-                CurrentState = "Empty";
-            }
+            else CurrentState = "Empty";
         }
 
         [RelayCommand]
@@ -80,12 +75,11 @@ namespace _3DEUX1.IMMOBILIER.TG.ViewModels
                 await DeletePost(post);
             }
         }
-
         private async Task DeletePost(Post post)
         {
             // Implémentez ici la logique de suppression du post
             // Par exemple :
-            // await _postService.DeletePost(post.Id);
+            await _postService.DeletePostByUser(post.Id ?? 0);
             Posts.Remove(post);
         }
     }

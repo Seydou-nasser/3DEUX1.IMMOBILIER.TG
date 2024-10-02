@@ -59,7 +59,7 @@ namespace _3DEUX1.IMMOBILIER.TG
             builder.Services.AddSingleton<ManagementPage, ManagementPageViewModel>();
             //builder.Services.AddSingleton<ManagementPageViewModel>();
 
-            builder.Services.AddScoped<MyPostPage, MyPostPageViewModel>();
+            builder.Services.AddTransient<MyPostPage, MyPostPageViewModel>();
 
             builder.Services.AddSingleton<IUserService, UserService>();
             builder.Services.AddSingleton<IDialogService, DialogService>();

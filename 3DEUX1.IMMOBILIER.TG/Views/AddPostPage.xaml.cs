@@ -7,28 +7,29 @@ public partial class AddPostPage : ContentPage
     private readonly AddPostPageViewModel viewModel;
 
     public AddPostPage(AddPostPageViewModel viewModel)
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
         BindingContext = viewModel;
         this.viewModel = viewModel;
-        AvanceFrame.IsVisible = false;
+        // Supprimez cette ligne car la visibilit√© est maintenant g√©r√©e par le trigger
+        // AvanceFrame.IsVisible = false;
     }
 
 
     private void CategoryCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         var selectedCategory = e.CurrentSelection.FirstOrDefault() as string;
-        // Traitez la sÈlection ici
         viewModel.SlectedCat(selectedCategory!);
+        if (selectedCategory == "Voiture") AvanceFrame.IsVisible = false;
+        else AvanceFrame.IsVisible = true;
     }
 
     private void TypeCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        var selectedCategory = e.CurrentSelection.FirstOrDefault() as string;
-        // Traitez la sÈlection ici
-        if (selectedCategory == "Location") AvanceFrame.IsVisible = true;
+        var selectedType = e.CurrentSelection.FirstOrDefault() as string;
+        viewModel.SlectedType(selectedType!);
+        if (selectedType == "Location" && (string)CategoryCollectionView.SelectedItem != "Voiture") AvanceFrame.IsVisible = true;
         else AvanceFrame.IsVisible = false;
-        viewModel.SlectedType(selectedCategory!);
     }
 
     private void Picker_SelectedIndexChanged(object sender, EventArgs e)

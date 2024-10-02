@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="_3DEUX1.IMMOBILIER.TG.Views.AddPostPage"
              xmlns:vm="clr-namespace:_3DEUX1.IMMOBILIER.TG.ViewModels"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:DataType="vm:AddPostPageViewModel"
              Title="AddPostPage"
              BackgroundColor="White">
-
     <ContentPage.Resources>
         <Style TargetType="Grid">
             <Setter Property="VisualStateManager.VisualStateGroups">
@@ -15,7 +15,8 @@
                         <VisualState x:Name="Normal" />
                         <VisualState x:Name="Selected">
                             <VisualState.Setters>
-                                <Setter Property="BackgroundColor" Value="LightGray" />
+                                <Setter Property="BackgroundColor"
+                                        Value="LightGray" />
                             </VisualState.Setters>
                         </VisualState>
                     </VisualStateGroup>
@@ -23,168 +24,382 @@
             </Setter>
         </Style>
     </ContentPage.Resources>
-
-
     <ScrollView VerticalScrollBarVisibility="Always">
         <StackLayout>
-            <Label Text="Ajout de post " FontSize="Title" HorizontalOptions="CenterAndExpand"/>
+            <Label Text="Ajout de post"
+                   FontSize="Title"
+                   HorizontalOptions="CenterAndExpand" />
             <VerticalStackLayout Margin="20">
-                <Label Text="Nom" FontSize="Subtitle"/>
-                <Frame Padding="0" >
-                    <Entry Placeholder="Nom" Text="{Binding Post.Name}" Margin="10,0,0,0" TextColor="Black" FontSize="Subtitle"/>
+                <Label Text="Nom"
+                       FontSize="Subtitle" />
+                <Frame Padding="0">
+                    <Entry Placeholder="Nom"
+                           Text="{Binding Post.Name}"
+                           Margin="10,0,0,0"
+                           TextColor="Black"
+                           FontSize="Subtitle" />
                 </Frame>
             </VerticalStackLayout>
             <VerticalStackLayout Margin="20,0,20,20">
-                <Label Text="Prix" FontSize="Subtitle"/>
-                <Frame Padding="0" >
+                <Label Text="Prix"
+                       FontSize="Subtitle" />
+                <Frame Padding="0">
                     <StackLayout Orientation="Horizontal">
-                        <Entry Placeholder="Prix" Text="{Binding Prix}" HorizontalOptions="FillAndExpand" TextColor="Black" 
-                               FontSize="Subtitle" Margin="10,0,0,0" Keyboard="Numeric"/>
-                        <Label Text="CFA/MOIS" FontSize="Subtitle" VerticalOptions="CenterAndExpand"
-                               HorizontalOptions="End" Margin="0,0,10,0"/>
+                        <Entry Placeholder="Prix"
+                               Text="{Binding Prix}"
+                               HorizontalOptions="FillAndExpand"
+                               TextColor="Black"
+                               FontSize="Subtitle"
+                               Margin="10,0,0,0"
+                               Keyboard="Numeric" />
+                        <Label Text="CFA/MOIS"
+                               FontSize="Subtitle"
+                               VerticalOptions="CenterAndExpand"
+                               HorizontalOptions="End"
+                               Margin="0,0,10,0" />
                     </StackLayout>
                 </Frame>
             </VerticalStackLayout>
             <VerticalStackLayout Margin="20,0,20,20">
-                <Label Text="Numero" FontSize="Subtitle"/>
-                <Frame Padding="0" >
+                <Label Text="Numero"
+                       FontSize="Subtitle" />
+                <Frame Padding="0">
                     <StackLayout Orientation="Horizontal">
-                        <Label Text="+228" FontSize="Subtitle" VerticalOptions="CenterAndExpand"
-                               HorizontalOptions="End" Margin="10,0,10,0"/>
-                        <Entry Placeholder="Numero Whatsapp...." Text="{Binding Post.UserNum}" HorizontalOptions="FillAndExpand" TextColor="Black" 
-                               FontSize="Subtitle" Margin="0,0,0,0" Keyboard="Telephone"/>
+                        <Label Text="+228"
+                               FontSize="Subtitle"
+                               VerticalOptions="CenterAndExpand"
+                               HorizontalOptions="End"
+                               Margin="10,0,10,0" />
+                        <Entry Placeholder="Numero Whatsapp...."
+                               Text="{Binding Post.UserNum}"
+                               HorizontalOptions="FillAndExpand"
+                               TextColor="Black"
+                               FontSize="Subtitle"
+                               Margin="0,0,0,0"
+                               Keyboard="Telephone" />
                     </StackLayout>
                 </Frame>
             </VerticalStackLayout>
             <VerticalStackLayout Margin="20,0,20,20">
-                <Label Text="Localisation" FontSize="Subtitle"/>
-                <Picker Title="Appuier ici pour selectionner.."  FontSize="Subtitle" SelectedIndexChanged="Picker_SelectedIndexChanged"
-                        x:Name="Picker" ItemsSource="{Binding LocalisationsList}">
-
-                </Picker>
+                <Label Text="Localisation"
+                       FontSize="Subtitle" />
+                <Picker Title="Appuier ici pour selectionner.."
+                        FontSize="Subtitle"
+                        SelectedIndexChanged="Picker_SelectedIndexChanged"
+                        x:Name="Picker"
+                        ItemsSource="{Binding LocalisationsList}" />
             </VerticalStackLayout>
             <VerticalStackLayout Margin="20,0,20,20">
-                <Label Text="Type" FontSize="Title"/>
+                <Label Text="Type"
+                       FontSize="Title" />
                 <CollectionView x:Name="TypeCollectionView"
-                        SelectionMode="Single" 
-                        SelectionChanged="TypeCollectionView_SelectionChanged">
-                    <CollectionView.ItemsLayout >
-                        <GridItemsLayout HorizontalItemSpacing="50" Orientation="Horizontal" />
+                                SelectionMode="Single"
+                                SelectionChanged="TypeCollectionView_SelectionChanged">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout HorizontalItemSpacing="50"
+                                         Orientation="Horizontal" />
                     </CollectionView.ItemsLayout>
-
                     <CollectionView.ItemsSource>
-                        <x:Array Type="{x:Type x:String}">
-                            <x:String>Location</x:String>
-                            <!--<x:String>Vente</x:String>-->
-                        </x:Array>
-                    </CollectionView.ItemsSource>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Padding="10" >
-                                <Label Text="{Binding .}" FontSize="Subtitle"/>
-                            </Grid>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </VerticalStackLayout>
-            <Frame Padding="0" Margin="20,0,20,20" x:Name="AvanceFrame">
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Avance : " FontSize="Subtitle" VerticalOptions="CenterAndExpand"
-                            HorizontalOptions="End" Margin="10,0,0,0"/>
-                    <Entry Placeholder="Avance.." HorizontalOptions="CenterAndExpand" TextColor="Black" 
-                           FontSize="Subtitle" Margin="0,0,10,0" Text="{Binding Avance}" Keyboard="Numeric"/>
-                    <Label Text="MOIS" FontSize="Subtitle" VerticalOptions="CenterAndExpand"
-                           HorizontalOptions="End" Margin="0,0,10,0"/>
-                </StackLayout>
-            </Frame>
-            <!--<VerticalStackLayout Margin="20,0,20,20">
-                <Label Text="Type(Vente, Location.....)" FontSize="Subtitle"/>
-                <Picker Title="Selection" FontSize="Subtitle" SelectedIndexChanged="Picker2_SelectedIndexChanged"
-                        x:Name="Picker2">
-                    <Picker.ItemsSource>
                         <x:Array Type="{x:Type x:String}">
                             <x:String>Location</x:String>
                             <x:String>Vente</x:String>
                         </x:Array>
-                    </Picker.ItemsSource>
-                </Picker>
-            </VerticalStackLayout>-->
-            <VerticalStackLayout Margin="20,0,20,20">
-                <Label Text="Categorie" FontSize="Title"/>
-                <CollectionView x:Name="CategoryCollectionView" 
-                        SelectionMode="Single"
-                        SelectionChanged="CategoryCollectionView_SelectionChanged" >
-                    <CollectionView.ItemsLayout>
-                        <GridItemsLayout Span="2" Orientation="Vertical"  />
-                    </CollectionView.ItemsLayout>
-
-                    <CollectionView.ItemsSource>
-                        <x:Array Type="{x:Type x:String}">
-                            <x:String>Maison</x:String>
-                            <x:String>Appartement</x:String>
-                            <x:String>Salle de Reuinion</x:String>
-                            <!--<x:String>Voiture</x:String>-->
-                        </x:Array>
                     </CollectionView.ItemsSource>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Grid Padding="10" RowDefinitions="auto">
-                                <Label Text="{Binding .}" FontSize="Subtitle" />
+                            <Grid Padding="10">
+                                <Label Text="{Binding .}"
+                                       FontSize="Subtitle" />
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </VerticalStackLayout>
-
-            <Frame Padding="0" Margin="20,0,20,20">
+            <Frame Padding="0"
+                   x:Name="AvanceFrame"
+                   Margin="20,0,20,20"
+                   IsVisible="False">
                 <StackLayout Orientation="Horizontal">
-                    <Label Text="Superficie du terrain : " FontSize="Subtitle" VerticalOptions="CenterAndExpand"
-                               HorizontalOptions="End" Margin="10,0,0,0"/>
-                    <Entry Placeholder="Superficie..." HorizontalOptions="CenterAndExpand" TextColor="Black" 
-                           FontSize="Subtitle" Margin="0,0,0,0" Text="{Binding Superficie}" Keyboard="Numeric"/>
-                    <Label Text="m2" FontSize="Subtitle" VerticalOptions="CenterAndExpand"
-                           HorizontalOptions="End" Margin="0,0,10,0"/>
+                    <Label Text="Avance : "
+                           FontSize="Subtitle"
+                           VerticalOptions="CenterAndExpand"
+                           HorizontalOptions="End"
+                           Margin="10,0,0,0" />
+                    <Entry Placeholder="Avance.."
+                           HorizontalOptions="CenterAndExpand"
+                           TextColor="Black"
+                           FontSize="Subtitle"
+                           Margin="0,0,10,0"
+                           Text="{Binding Avance}"
+                           Keyboard="Numeric" />
+                    <Label Text="MOIS"
+                           FontSize="Subtitle"
+                           VerticalOptions="CenterAndExpand"
+                           HorizontalOptions="End"
+                           Margin="0,0,10,0" />
                 </StackLayout>
             </Frame>
-
-            <Frame Padding="0" Margin="20,0,20,20">
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Chambre : " FontSize="Subtitle" VerticalOptions="CenterAndExpand"
-                                HorizontalOptions="End" Margin="10,0,0,0"/>
-                    <Entry Placeholder="Chambre..." HorizontalOptions="CenterAndExpand" TextColor="Black" 
-                                FontSize="Subtitle" Margin="0,0,10,0" Text="{Binding Chambre}" Keyboard="Numeric"/>
-                </StackLayout>
-            </Frame>
-
-            <Button Text="Selection de photo" BackgroundColor="Gray" Margin="20">
+            <VerticalStackLayout Margin="20,0,20,20">
+                <Label Text="Categorie"
+                       FontSize="Title" />
+                <CollectionView x:Name="CategoryCollectionView"
+                                SelectionMode="Single"
+                                SelectionChanged="CategoryCollectionView_SelectionChanged">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Span="2"
+                                         Orientation="Vertical" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Maison</x:String>
+                            <x:String>Appartement</x:String>
+                            <x:String>Salle de Reunion</x:String>
+                            <x:String>Voiture</x:String>
+                        </x:Array>
+                    </CollectionView.ItemsSource>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="10"
+                                  RowDefinitions="auto">
+                                <Label Text="{Binding .}"
+                                       FontSize="Subtitle" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+            <StackLayout x:Name="MaisonStack"
+                         IsVisible="False">
+                <StackLayout.Triggers>
+                    <DataTrigger TargetType="StackLayout"
+                                 Binding="{Binding Post.Categories}"
+                                 Value="Maison">
+                        <Setter Property="IsVisible"
+                                Value="True" />
+                    </DataTrigger>
+                </StackLayout.Triggers>
+                <Frame Padding="0"
+                       Margin="20,0,20,20">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Superficie du terrain : "
+                               FontSize="Subtitle"
+                               VerticalOptions="CenterAndExpand"
+                               HorizontalOptions="End"
+                               Margin="10,0,0,0" />
+                        <Entry Placeholder="Superficie..."
+                               HorizontalOptions="CenterAndExpand"
+                               TextColor="Black"
+                               FontSize="Subtitle"
+                               Margin="0,0,0,0"
+                               Text="{Binding Superficie}"
+                               Keyboard="Numeric" />
+                        <Label Text="m2"
+                               FontSize="Subtitle"
+                               VerticalOptions="CenterAndExpand"
+                               HorizontalOptions="End"
+                               Margin="0,0,10,0" />
+                    </StackLayout>
+                </Frame>
+                <Frame Padding="0"
+                       Margin="20,0,20,20">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Chambre : "
+                               FontSize="Subtitle"
+                               VerticalOptions="CenterAndExpand"
+                               HorizontalOptions="End"
+                               Margin="10,0,0,0" />
+                        <Entry Placeholder="Chambre..."
+                               HorizontalOptions="CenterAndExpand"
+                               TextColor="Black"
+                               FontSize="Subtitle"
+                               Margin="0,0,10,0"
+                               Text="{Binding Chambre}"
+                               Keyboard="Numeric" />
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+            <StackLayout x:Name="AppartementStack"
+                         IsVisible="False">
+                <StackLayout.Triggers>
+                    <DataTrigger TargetType="StackLayout"
+                                 Binding="{Binding Post.Categories}"
+                                 Value="Appartement">
+                        <Setter Property="IsVisible"
+                                Value="True" />
+                    </DataTrigger>
+                </StackLayout.Triggers>
+                <Frame Padding="0"
+                       Margin="20,0,20,20">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Superficie du terrain : "
+                               FontSize="Subtitle"
+                               VerticalOptions="CenterAndExpand"
+                               HorizontalOptions="End"
+                               Margin="10,0,0,0" />
+                        <Entry Placeholder="Superficie..."
+                               HorizontalOptions="CenterAndExpand"
+                               TextColor="Black"
+                               FontSize="Subtitle"
+                               Margin="0,0,0,0"
+                               Text="{Binding Superficie}"
+                               Keyboard="Numeric" />
+                        <Label Text="m2"
+                               FontSize="Subtitle"
+                               VerticalOptions="CenterAndExpand"
+                               HorizontalOptions="End"
+                               Margin="0,0,10,0" />
+                    </StackLayout>
+                </Frame>
+                <Frame Padding="0"
+                       Margin="20,0,20,20">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Chambre : "
+                               FontSize="Subtitle"
+                               VerticalOptions="CenterAndExpand"
+                               HorizontalOptions="End"
+                               Margin="10,0,0,0" />
+                        <Entry Placeholder="Chambre..."
+                               HorizontalOptions="CenterAndExpand"
+                               TextColor="Black"
+                               FontSize="Subtitle"
+                               Margin="0,0,10,0"
+                               Text="{Binding Chambre}"
+                               Keyboard="Numeric" />
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+            <StackLayout x:Name="VoitureStack"
+                         IsVisible="False">
+                <StackLayout.Triggers>
+                    <DataTrigger TargetType="StackLayout"
+                                 Binding="{Binding Post.Categories}"
+                                 Value="Voiture">
+                        <Setter Property="IsVisible"
+                                Value="True" />
+                    </DataTrigger>
+                </StackLayout.Triggers>
+                <Frame Padding="0"
+                       Margin="20,0,20,20">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Marque : "
+                               FontSize="Subtitle"
+                               VerticalOptions="CenterAndExpand"
+                               Margin="10,0,0,0" />
+                        <Entry Placeholder="Marque..."
+                               HorizontalOptions="FillAndExpand"
+                               Text="{Binding Marque}"
+                               Margin="0,0,10,0" />
+                    </StackLayout>
+                </Frame>
+                <Frame Padding="0"
+                       Margin="20,0,20,20">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Modèle : "
+                               FontSize="Subtitle"
+                               VerticalOptions="CenterAndExpand"
+                               Margin="10,0,0,0" />
+                        <Entry Placeholder="Modèle..."
+                               HorizontalOptions="FillAndExpand"
+                               Text="{Binding Modele}"
+                               Margin="0,0,10,0" />
+                    </StackLayout>
+                </Frame>
+                <Frame Padding="0"
+                       Margin="20,0,20,20">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Année : "
+                               FontSize="Subtitle"
+                               VerticalOptions="CenterAndExpand"
+                               Margin="10,0,0,0" />
+                        <Entry Placeholder="Année..."
+                               HorizontalOptions="FillAndExpand"
+                               Text="{Binding Annee}"
+                               Keyboard="Numeric"
+                               Margin="0,0,10,0" />
+                    </StackLayout>
+                </Frame>
+                <Frame Padding="0"
+                       Margin="20,0,20,20">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Kilométrage : "
+                               FontSize="Subtitle"
+                               VerticalOptions="CenterAndExpand"
+                               Margin="10,0,0,0" />
+                        <Entry Placeholder="Kilométrage..."
+                               HorizontalOptions="FillAndExpand"
+                               Text="{Binding Kilometrage}"
+                               Keyboard="Numeric"
+                               Margin="0,0,10,0" />
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+            <StackLayout x:Name="SalleReunionStack"
+                         IsVisible="False">
+                <StackLayout.Triggers>
+                    <DataTrigger TargetType="StackLayout"
+                                 Binding="{Binding Post.Categories}"
+                                 Value="Salle de Reunion">
+                        <Setter Property="IsVisible"
+                                Value="True" />
+                    </DataTrigger>
+                </StackLayout.Triggers>
+                <Frame Padding="0"
+                       Margin="20,0,20,20">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Capacité : "
+                               FontSize="Subtitle"
+                               VerticalOptions="CenterAndExpand"
+                               Margin="10,0,0,0" />
+                        <Entry Placeholder="Nombre de personnes..."
+                               HorizontalOptions="FillAndExpand"
+                               Text="{Binding Capacite}"
+                               Keyboard="Numeric"
+                               Margin="0,0,10,0" />
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+            <Button Text="Selection de photo"
+                    BackgroundColor="Gray"
+                    Margin="20">
                 <Button.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding SelectImageCommand}"/>
+                    <TapGestureRecognizer Command="{Binding SelectImageCommand}" />
                 </Button.GestureRecognizers>
             </Button>
-
-            <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
+            <ScrollView Orientation="Horizontal"
+                        HorizontalScrollBarVisibility="Never">
                 <HorizontalStackLayout BindableLayout.ItemsSource="{Binding Images}">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
-                            <Image HeightRequest="100" WidthRequest="100" Margin="10" Source="{Binding .}" />
+                            <Image HeightRequest="100"
+                                   WidthRequest="100"
+                                   Margin="10"
+                                   Source="{Binding .}" />
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </HorizontalStackLayout>
             </ScrollView>
-
-            <VerticalStackLayout Spacing="5" Margin="20,0,20,20">
-                <Label Text="Desciption" FontSize="Title"/>
+            <VerticalStackLayout Spacing="5"
+                                 Margin="20,0,20,20">
+                <Label Text="Desciption"
+                       FontSize="Title" />
                 <Frame Padding="5">
-                    <Editor Text="{Binding Description}" Placeholder="Description du post...."
-                            PlaceholderColor="LightGray" IsTextPredictionEnabled="True" AutoSize="TextChanges"/>
+                    <Editor Text="{Binding Description}"
+                            Placeholder="Description du post...."
+                            PlaceholderColor="LightGray"
+                            IsTextPredictionEnabled="True"
+                            AutoSize="TextChanges" />
                 </Frame>
             </VerticalStackLayout>
-
-            <Button Text="Envoyer" BackgroundColor="Gray" Margin="20" VerticalOptions="EndAndExpand" 
-                    Command="{Binding EnvoyerCommand}"/>
-
-            <Button Text="Previsualiser le rendu !" BackgroundColor="Gray" Margin="20" VerticalOptions="EndAndExpand" 
-                    Command="{Binding PrevisualisationCommand}"/>
+            <Button Text="Envoyer"
+                    BackgroundColor="Gray"
+                    Margin="20"
+                    VerticalOptions="EndAndExpand"
+                    Command="{Binding EnvoyerCommand}" />
+            <Button Text="Previsualiser le rendu !"
+                    BackgroundColor="Gray"
+                    Margin="20"
+                    VerticalOptions="EndAndExpand"
+                    Command="{Binding PrevisualisationCommand}" />
         </StackLayout>
     </ScrollView>
 </ContentPage>

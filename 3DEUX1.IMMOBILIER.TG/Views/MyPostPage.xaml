@@ -33,11 +33,13 @@
                                        x:Name="Data">
                                     <Grid RowDefinitions="250,auto"
                                           MaximumWidthRequest="350">
-                                        <Button Text="Supprimer"
-                                                BackgroundColor="#ff1000"
+                                        <Button Text="Supprimer" ZIndex="2" 
+                                                BackgroundColor="#DA625A"
+                                                VerticalOptions="Start"
                                                 TextColor="White"
                                                 CornerRadius="20"
-                                                Padding="20,10"
+                                                Margin="10"
+                                                Padding="5"
                                                 HorizontalOptions="End"
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MyPostPageViewModel}}, Path=ConfirmDeletePostCommand}"
                                                 CommandParameter="{Binding .}" />

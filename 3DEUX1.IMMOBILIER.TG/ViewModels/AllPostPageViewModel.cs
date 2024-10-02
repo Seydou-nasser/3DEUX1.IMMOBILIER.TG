@@ -95,20 +95,20 @@ namespace _3DEUX1.IMMOBILIER.TG.ViewModels
         public MvvmHelpers.ObservableRangeCollection<Post> Posts { get; set; } = new();
         //[ObservableProperty]
         //public List<Post> _posts;
-
+        private readonly IPostService _postService;
 
         private int pageIndex = 1;
-        public AllPostPageViewModel()
+        public AllPostPageViewModel(IPostService postService)
         {
-            postService = new PostService(new HttpClient());
+            _postService = postService;
             CatSelect = (int)(EnumCategories.Maison);
             CurrentState = "Loading";
             //LoadData();
         }
-        private async void LoadData()
+        private async Task LoadData()
         {
             CurrentState = "Loading";
-            var res = await postService.GetAllPost(1);
+            var res = await _postService.GetAllPost(1);
             if (res is not null)
             {
                 if (res.Count > 0)
@@ -138,7 +138,7 @@ namespace _3DEUX1.IMMOBILIER.TG.ViewModels
         public void CategorieSelectionerFunc(string SCat)
         {
             int cat = int.Parse(SCat);
-            if (cat != CatSelect )
+            if (cat != CatSelect)
             {
                 IsBusy = false;
                 pageIndex = 1;
@@ -150,11 +150,11 @@ namespace _3DEUX1.IMMOBILIER.TG.ViewModels
                 else if (cat == (int)EnumCategories.Maison) { CatSelect = (int)EnumCategories.Maison; }
             }
         }
-        private async void LoadDataByCategorie(string Catg)
+        private async Task LoadDataByCategorie(string Catg)
         {
             //CurrentState = "Loading";
             pageIndex = 1;
-            var res = await postService.GetPostByCategories(pageIndex, type: "Location", cat: Catg);
+            var res = await _postService.GetPostByCategories(pageIndex, type: "Location", category: Catg);
             if (res is not null)
             {
                 if (res.Count > 0)
@@ -171,10 +171,10 @@ namespace _3DEUX1.IMMOBILIER.TG.ViewModels
                 CurrentState = "Empty";
             }
         }
-        public async void LoadDataByScroll()
+        public async Task LoadDataByScroll()
         {
             string catg = "";
-            
+
             if (IsBusy == false)
             {
                 switch (_CatSelect)
@@ -193,21 +193,21 @@ namespace _3DEUX1.IMMOBILIER.TG.ViewModels
                         break;
                 }
                 IsBusy = true;
-                var res = await postService.GetPostByCategories(pageIndex, type: "Locations", cat: catg);
+                var res = await _postService.GetPostByCategories(pageIndex, type: "Locations", category: catg);
                 if (res is not null)
                 {
                     if (res.Count > 0)
                     {
                         Posts.AddRange(res);
                         IsBusy = false;
-                        pageIndex++; 
+                        pageIndex++;
                         return;
                     }
                 }
                 //await Task.Delay(3000);
                 IsBusy = false;
             }
-            
+
         }
 
     }

@@ -22,7 +22,6 @@ namespace _3DEUX1.IMMOBILIER.TG.Services
         {
             try
             {
-                // Envoi de la requête GET
                 var response = await _httpClient.GetAsync("Post/GetFourPost");
                 if (response.IsSuccessStatusCode)
                 {
@@ -41,11 +40,11 @@ namespace _3DEUX1.IMMOBILIER.TG.Services
         }
 
         // Méthode pour récupérer tous les posts avec pagination
-        public async Task<List<Post>> GetAllPost(int pageIndex)
+        public async Task<List<Post>> GetAllPost(int pageNumber)
         {
             try
             {
-                var response = await _httpClient.GetAsync($"Post/GetAllPostNotDelected?pageNumber={pageIndex}");
+                var response = await _httpClient.GetAsync($"Post/GetAllPostNotDelected?pageNumber={pageNumber}");
                 if (response.IsSuccessStatusCode)
                 {
                     var resString = await response.Content.ReadAsStringAsync();
@@ -61,12 +60,11 @@ namespace _3DEUX1.IMMOBILIER.TG.Services
         }
 
         // Méthode pour récupérer les posts par catégorie
-        public async Task<List<Post>> GetPostByCategories(int pageIndex, string type, string cat)
+        public async Task<List<Post>> GetPostByCategories(int pageNumber, string type, string category)
         {
             try
             {
-                // Construction de l'URL avec les paramètres
-                var response = await _httpClient.GetAsync($"Post/GetAllPostByCategory/{type}/{cat}?pageNumber={pageIndex}");
+                var response = await _httpClient.GetAsync($"Post/GetAllPostByCategory/{type}/{category}?pageNumber={pageNumber}");
                 if (response.IsSuccessStatusCode)
                 {
                     var resString = await response.Content.ReadAsStringAsync();
@@ -105,11 +103,11 @@ namespace _3DEUX1.IMMOBILIER.TG.Services
         }
 
         // Méthode pour récupérer les posts par email
-        public async Task<List<Post>> GetPostsByEmail(string email, int page)
+        public async Task<List<Post>> GetPostsByEmail(string email, int pageNumber)
         {
             try
             {
-                var response = await _httpClient.GetAsync($"Post/GetPostsByUser/{email}?pageNumber={page}");
+                var response = await _httpClient.GetAsync($"Post/GetPostsByUser/{email}?pageNumber={pageNumber}");
                 if (response.IsSuccessStatusCode)
                 {
                     var resString = await response.Content.ReadAsStringAsync();
@@ -123,5 +121,56 @@ namespace _3DEUX1.IMMOBILIER.TG.Services
                 return new List<Post>();
             }
         }
+
+        public async Task<bool> DeletePostByUser(int id)
+        {
+            try
+            {
+                var response = await _httpClient.DeleteAsync($"Post/DeletePostByUser/{id}");
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erreur lors de la suppression du post : {ex.Message}");
+                return false;
+            }
+        }
+
+        // Nouvelle méthode pour récupérer un post par son ID
+        public async Task<Post> GetPostById(int id)
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync($"Post/GetPost/{id}");
+                if (response.IsSuccessStatusCode)
+                {
+                    var resString = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<Post>(resString) ?? new Post();
+                }
+                return new Post();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erreur lors de la récupération du post par ID : {ex.Message}");
+                return new Post();
+            }
+        }
+
+        // Nouvelle méthode pour mettre à jour un post
+        public async Task<bool> UpdatePost(UpdatePostModel model)
+        {
+            try
+            {
+                var response = await _httpClient.PutAsJsonAsync("Post/UpdatePost", model);
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erreur lors de la mise à jour du post : {ex.Message}");
+                return false;
+            }
+        }
     }
+
+
 }
