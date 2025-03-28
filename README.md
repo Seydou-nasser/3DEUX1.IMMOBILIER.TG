@@ -43,9 +43,3 @@ Les contributions sont les bienvenues ! Pour proposer des modifications, veuille
 
 - **Seydou Nasser** - Développeur principal
 
-## Licence
-
-Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
-```
-
-Vous pouvez copier ce contenu dans votre fichier README.md et l'adapter selon vos besoins spécifiques.
