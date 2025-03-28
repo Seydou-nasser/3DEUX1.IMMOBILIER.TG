@@ -35,10 +35,6 @@
    dotnet run
    ```
 
-## Contribution
-
-Les contributions sont les bienvenues ! Pour proposer des modifications, veuillez créer une branche à partir de `main`, apporter vos modifications et soumettre une pull request.
-
 ## Auteur
 
 - **Seydou Nasser** - Développeur principal
